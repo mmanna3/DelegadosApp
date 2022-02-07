@@ -11,7 +11,8 @@ export default function TabOneScreen({
     <View style={styles.container}>
       <Text style={styles.title}>EDeFI Delegados</Text>
       <Text style={styles.subtitulo}>
-        Bienvenido, delegado. Si no tenés usuario, comunicate con EDeFI.
+        ¡Bienvenido, delegado! Si no tenés usuario, comunicate con la
+        administración de la liga.
       </Text>
       <LoginForm />
     </View>

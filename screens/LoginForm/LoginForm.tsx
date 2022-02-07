@@ -21,6 +21,7 @@ export default function LoginForm() {
       />
       <TextInput
         value={password}
+        secureTextEntry={true}
         onChangeText={(password) => setPassword(password)}
         placeholder="Contraseña"
         style={styles.input}
@@ -35,13 +36,14 @@ const styles = StyleSheet.create({
   container: {
     marginTop: 30,
     flex: 1,
-    alignItems: "center",
+    // alignItems: "center",
     // justifyContent: "center",
   },
   input: {
     width: 250,
-    height: 44,
+    height: 50,
     padding: 10,
+    borderRadius: 4,
     borderWidth: 1,
     borderColor: "black",
     marginBottom: 10,
