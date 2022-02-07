@@ -1,7 +1,8 @@
-## BUILD Android APK
+## Build APK e instalar en teléfono
 
     eas build -p android --profile apk
+    adb install app.apk
 
-## BUILD Android Bundle (.aab)
+## Build Android Bundle para store (.aab)
 
     eas build
