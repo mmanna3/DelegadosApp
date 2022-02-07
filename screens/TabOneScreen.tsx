@@ -1,8 +1,8 @@
+import React from "react";
 import { StyleSheet } from "react-native";
-
-import EditScreenInfo from "../components/EditScreenInfo";
 import { Text, View } from "../components/Themed";
 import { RootTabScreenProps } from "../types";
+import LoginForm from "./LoginForm/LoginForm";
 
 export default function TabOneScreen({
   navigation,
@@ -10,12 +10,10 @@ export default function TabOneScreen({
   return (
     <View style={styles.container}>
       <Text style={styles.title}>EDeFI Delegados</Text>
-      <View
-        style={styles.separator}
-        lightColor="#eee"
-        darkColor="rgba(255,255,255,0.1)"
-      />
-      <EditScreenInfo path="/screens/TabOneScreen.tsx" />
+      <Text style={styles.subtitulo}>
+        Bienvenido, delegado. Si no tenés usuario, comunicate con EDeFI.
+      </Text>
+      <LoginForm />
     </View>
   );
 }
@@ -27,8 +25,13 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   title: {
-    fontSize: 20,
+    fontSize: 32,
     fontWeight: "bold",
+  },
+  subtitulo: {
+    fontSize: 20,
+    marginVertical: 30,
+    marginHorizontal: 30,
   },
   separator: {
     marginVertical: 30,
