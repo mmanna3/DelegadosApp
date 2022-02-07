@@ -4,7 +4,7 @@
     "slug": "EDeFI-Delegados",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/logo.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "splash": {
@@ -22,6 +22,8 @@
       "supportsTablet": true
     },
     "android": {
+      "package": "com.ykn.edefidelegados",
+      "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
