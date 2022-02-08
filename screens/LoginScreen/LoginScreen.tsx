@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet } from "react-native";
 import { Text, View } from "../../components/Themed";
 import { RootTabScreenProps } from "../../types";
@@ -14,7 +14,7 @@ export default function LoginScreen({
         ¡Bienvenido, delegado! Si no tenés usuario, comunicate con la
         administración de la liga.
       </Text>
-      <LoginForm onPress={() => navigation.navigate("Jugadores")} />
+      <LoginForm onSuccess={() => navigation.navigate("Jugadores")} />
     </View>
   );
 }
