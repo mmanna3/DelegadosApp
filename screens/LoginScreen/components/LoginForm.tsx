@@ -2,12 +2,11 @@ import React, { Component, useState } from "react";
 import { Alert, TextInput, View, StyleSheet } from "react-native";
 import Button from "../../../components/Button";
 
-type FormData = {
-  firstName: string;
-  lastName: string;
-};
+interface Props {
+  onPress: () => void;
+}
 
-export default function LoginForm() {
+export default function LoginForm(props: Props) {
   const [usuario, setUsuario] = useState("");
   const [password, setPassword] = useState("");
 
@@ -27,7 +26,7 @@ export default function LoginForm() {
         style={styles.input}
       />
 
-      <Button title="Ingresar" onPress={() => {}} />
+      <Button title="Ingresar" onPress={props.onPress} />
     </View>
   );
 }

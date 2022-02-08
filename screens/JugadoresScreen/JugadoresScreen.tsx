@@ -2,19 +2,13 @@ import React from "react";
 import { StyleSheet } from "react-native";
 import { Text, View } from "../../components/Themed";
 import { RootTabScreenProps } from "../../types";
-import LoginForm from "./components/LoginForm";
 
-export default function LoginScreen({
+export default function JugadoresScreen({
   navigation,
 }: RootTabScreenProps<"TabOne">) {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>EDeFI Delegados</Text>
-      <Text style={styles.subtitulo}>
-        ¡Bienvenido, delegado! Si no tenés usuario, comunicate con la
-        administración de la liga.
-      </Text>
-      <LoginForm onPress={() => navigation.navigate("Jugadores")} />
+      <Text style={styles.title}>Jugadores</Text>
     </View>
   );
 }

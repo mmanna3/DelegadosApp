@@ -16,6 +16,7 @@ import { ColorSchemeName, Pressable } from "react-native";
 
 import Colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
+import JugadoresScreen from "../screens/JugadoresScreen/JugadoresScreen";
 import LoginScreen from "../screens/LoginScreen/LoginScreen";
 import ModalScreen from "../screens/ModalScreen";
 import NotFoundScreen from "../screens/NotFoundScreen";
@@ -55,6 +56,11 @@ function RootNavigator() {
       <Stack.Screen
         name="Root"
         component={LoginScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Jugadores"
+        component={JugadoresScreen}
         options={{ headerShown: false }}
       />
       <Stack.Screen
