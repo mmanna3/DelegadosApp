@@ -1,6 +1,6 @@
 import React, { Component, useState } from "react";
 import { Alert, TextInput, View, StyleSheet } from "react-native";
-import Button from "../../components/Button";
+import Button from "../../../components/Button";
 
 type FormData = {
   firstName: string;
