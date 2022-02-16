@@ -15,6 +15,7 @@ export default function JugadoresScreen({
   navigation,
 }: RootTabScreenProps<"TabOne">) {
   const [jugadores, setJugadores] = useState<IJugador[]>([]);
+  let categoriaAnterior: string = "";
 
   return (
     <>
@@ -23,7 +24,27 @@ export default function JugadoresScreen({
           <GetJugadoresForm onSuccess={(res) => setJugadores(res)} />
           <View style={styles.cardsContainer}>
             {jugadores.map((jugador) => {
-              return <JugadorCard key={jugador.DNI} jugador={jugador} />;
+              let cambioLaCategoria;
+
+              if (categoriaAnterior !== jugador.Categoria) {
+                cambioLaCategoria = true;
+                categoriaAnterior = jugador.Categoria;
+              } else {
+                cambioLaCategoria = false;
+              }
+
+              return (
+                <>
+                  {cambioLaCategoria ? (
+                    <Text style={styles.categoria}>
+                      Categoría {jugador.Categoria}
+                    </Text>
+                  ) : (
+                    <></>
+                  )}
+                  <JugadorCard key={jugador.DNI} jugador={jugador} />
+                </>
+              );
             })}
           </View>
         </ScrollView>
@@ -40,5 +61,15 @@ const styles = StyleSheet.create({
   },
   cardsContainer: {
     marginTop: 20,
+  },
+  categoria: {
+    textAlign: "center",
+    fontSize: 16,
+    paddingVertical: 10,
+    backgroundColor: "blue",
+    color: "white",
+    fontWeight: "bold",
+    marginBottom: 15,
+    marginTop: 5,
   },
 });

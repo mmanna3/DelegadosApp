@@ -28,9 +28,9 @@ const styles = StyleSheet.create({
   card: {
     marginBottom: 10,
     width: 300,
-    height: 350,
+    height: 380,
     borderRadius: 10,
-    paddingVertical: 12,
+    paddingVertical: 25,
     paddingHorizontal: 32,
     elevation: 3,
     backgroundColor: "#01aa59",
@@ -38,14 +38,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   equipoYTorneo: {
-    fontSize: 16,
+    fontSize: 18,
     lineHeight: 21,
     fontWeight: "bold",
     letterSpacing: 0.25,
     color: "white",
   },
   dato: {
-    fontSize: 14,
+    fontSize: 16,
     lineHeight: 21,
     fontWeight: "bold",
     letterSpacing: 0.25,
