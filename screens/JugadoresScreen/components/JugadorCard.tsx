@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, View, StyleSheet, Pressable } from "react-native";
+import { Text, View, StyleSheet, Image } from "react-native";
 
 interface Props {
   jugador: IJugador;
@@ -12,6 +12,10 @@ export default function JugadorCard(props: Props) {
       <Text style={styles.equipoYTorneo}>
         {jugador.Equipo} - {jugador.TipoLiga}
       </Text>
+      <Image
+        style={styles.foto}
+        source={{ uri: `data:image/jpeg;base64,${jugador.FotoBase64}` }}
+      />
       <Text style={styles.dato}>{jugador.DNI}</Text>
       <Text style={styles.dato}>{jugador.Nombre}</Text>
       <Text style={styles.dato}>{jugador.Apellido}</Text>
@@ -24,12 +28,14 @@ const styles = StyleSheet.create({
   card: {
     marginBottom: 10,
     width: 300,
-    height: 300,
+    height: 350,
     borderRadius: 10,
     paddingVertical: 12,
     paddingHorizontal: 32,
     elevation: 3,
     backgroundColor: "#01aa59",
+    justifyContent: "center",
+    alignItems: "center",
   },
   equipoYTorneo: {
     fontSize: 16,
@@ -37,7 +43,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     letterSpacing: 0.25,
     color: "white",
-    textAlign: "center",
   },
   dato: {
     fontSize: 14,
@@ -45,6 +50,13 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     letterSpacing: 0.25,
     color: "white",
-    textAlign: "center",
+  },
+  foto: {
+    marginVertical: 15,
+    width: 200,
+    height: 200,
+    borderRadius: 10,
+    borderWidth: 2,
+    borderColor: "#ccc",
   },
 });
