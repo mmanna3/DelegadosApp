@@ -18,7 +18,7 @@ export default function GetJugadoresForm(props: Props) {
     setError("");
     const resultado = await getJugadores({ codigoAlfanumerico: codigoEquipo });
     if (resultado.huboError == false) {
-      props.onSuccess(resultado.contenido);
+      props.onSuccess(resultado.contenido as IJugador[]);
     } else {
       setError(resultado.mensajeDeError);
     }

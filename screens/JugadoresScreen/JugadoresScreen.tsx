@@ -7,12 +7,14 @@ import GetJugadoresForm from "./components/GetJugadoresForm";
 export default function JugadoresScreen({
   navigation,
 }: RootTabScreenProps<"TabOne">) {
-  const [jugadores, setJugadores] = useState();
+  const [jugadores, setJugadores] = useState<IJugador[]>([]);
 
   return (
     <>
       <GetJugadoresForm onSuccess={(res) => setJugadores(res)} />
-      <Text>{jugadores}</Text>
+      {jugadores.map((jugador) => {
+        return <Text key={jugador.DNI}>{jugador.Nombre}</Text>;
+      })}
     </>
   );
 }
