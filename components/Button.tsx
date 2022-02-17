@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
   button: {
     alignItems: "center",
     justifyContent: "center",
-    paddingVertical: 12,
+    paddingVertical: 16,
     paddingHorizontal: 32,
     borderRadius: 4,
     elevation: 3,
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 21,
     fontWeight: "bold",
-    letterSpacing: 0.25,
+    letterSpacing: 0.7,
     color: "white",
   },
 });

@@ -55,7 +55,7 @@ function RootNavigator() {
     <Stack.Navigator>
       <Stack.Screen
         name="Root"
-        component={JugadoresScreen}
+        component={LoginScreen}
         options={{ headerShown: false }}
       />
       <Stack.Screen

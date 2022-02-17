@@ -30,7 +30,7 @@ export default function LoginForm(props: Props) {
       <TextInput
         value={usuario}
         onChangeText={(usuario) => setUsuario(usuario)}
-        placeholder="Usuario"
+        placeholder="Email"
         style={styles.input}
       />
       <TextInput
@@ -51,17 +51,17 @@ const styles = StyleSheet.create({
   container: {
     marginTop: 30,
     flex: 1,
-    // alignItems: "center",
-    // justifyContent: "center",
   },
   input: {
-    width: 250,
-    height: 50,
+    width: 270,
+    height: 60,
     padding: 10,
     borderRadius: 4,
     borderWidth: 1,
-    borderColor: "black",
-    marginBottom: 10,
+    borderColor: "#ddd",
+    marginBottom: 11,
+    backgroundColor: "#eee",
+    fontSize: 16,
   },
   error: {
     elevation: 3,
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     borderColor: "#75000c",
     color: "#75000c",
-    fontSize: 14,
+    fontSize: 15,
     fontWeight: "bold",
     alignItems: "center",
     textAlign: "center",
