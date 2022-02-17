@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import { ImageBackground, StyleSheet } from "react-native";
+import React from "react";
+import { StyleSheet } from "react-native";
+import ContainerWithBackground from "../../components/ContainerWithBackground";
 import { Text, View } from "../../components/Themed";
 import { RootTabScreenProps } from "../../types";
 import LoginForm from "./components/LoginForm";
@@ -8,34 +9,20 @@ export default function LoginScreen({
   navigation,
 }: RootTabScreenProps<"TabOne">) {
   return (
-    <View style={styles.container}>
-      <ImageBackground
-        source={require("../../assets/images/background.jpg")}
-        resizeMode="cover"
-        style={styles.background}
-      >
-        <View style={styles.cabecera}>
-          <Text style={styles.title}>EDeFI Delegados</Text>
-          <Text style={styles.subtitulo}>
-            ¡Bienvenido, delegado! Si no tenés usuario, comunicate con la
-            administración de la liga.
-          </Text>
-        </View>
-        <LoginForm onSuccess={() => navigation.navigate("Jugadores")} />
-      </ImageBackground>
-    </View>
+    <ContainerWithBackground>
+      <View style={styles.cabecera}>
+        <Text style={styles.title}>EDeFI Delegados</Text>
+        <Text style={styles.subtitulo}>
+          ¡Bienvenido, delegado! Si no tenés usuario, comunicate con la
+          administración de la liga.
+        </Text>
+      </View>
+      <LoginForm onSuccess={() => navigation.navigate("Jugadores")} />
+    </ContainerWithBackground>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  background: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
   cabecera: {
     marginTop: 80,
     paddingTop: 20,
