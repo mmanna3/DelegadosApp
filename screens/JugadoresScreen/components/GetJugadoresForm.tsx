@@ -1,5 +1,5 @@
-import React, { Component, useState } from "react";
-import { Alert, TextInput, View, StyleSheet } from "react-native";
+import React, { useState } from "react";
+import { TextInput, View, StyleSheet } from "react-native";
 import Button from "../../../components/Button";
 import { Text } from "../../../components/Themed";
 import Colors from "../../../constants/Colors";
@@ -8,6 +8,7 @@ import useGetJugadores from "./../hooks/useGetJugadores";
 
 interface Props {
   onSuccess: (jugadores: any) => void;
+  beforeRequest: () => void;
 }
 
 export default function GetJugadoresForm(props: Props) {
@@ -17,6 +18,7 @@ export default function GetJugadoresForm(props: Props) {
   const { getJugadores, isLoading } = useGetJugadores();
 
   const obtenerJugadores = async () => {
+    props.beforeRequest();
     setError("");
     const resultado = await getJugadores({ codigoAlfanumerico: codigoEquipo });
     if (resultado.huboError == false) {

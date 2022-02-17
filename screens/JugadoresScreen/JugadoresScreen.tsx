@@ -1,11 +1,5 @@
 import React, { useState } from "react";
-import {
-  Button,
-  SafeAreaView,
-  ScrollView,
-  StyleSheet,
-  TextInput,
-} from "react-native";
+import { Dimensions, ScrollView, StyleSheet } from "react-native";
 import ContainerWithBackground from "../../components/ContainerWithBackground";
 import { Text, View } from "../../components/Themed";
 import { RootTabScreenProps } from "../../types";
@@ -22,21 +16,15 @@ export default function JugadoresScreen({
     <>
       <ContainerWithBackground>
         <ScrollView>
-          <GetJugadoresForm onSuccess={(res) => setJugadores(res)} />
+          <GetJugadoresForm
+            onSuccess={(res) => setJugadores(res)}
+            beforeRequest={() => setJugadores([])}
+          />
           <View style={styles.cardsContainer}>
             {jugadores.map((jugador) => {
-              let cambioLaCategoria;
-
-              if (categoriaAnterior !== jugador.Categoria) {
-                cambioLaCategoria = true;
-                categoriaAnterior = jugador.Categoria;
-              } else {
-                cambioLaCategoria = false;
-              }
-
               return (
                 <>
-                  {cambioLaCategoria ? (
+                  {cambioLaCategoria(jugador) ? (
                     <Text style={styles.categoria}>
                       Categoría {jugador.Categoria}
                     </Text>
@@ -52,25 +40,36 @@ export default function JugadoresScreen({
       </ContainerWithBackground>
     </>
   );
+
+  function cambioLaCategoria(jugador: IJugador) {
+    let cambioLaCategoria;
+
+    if (categoriaAnterior !== jugador.Categoria) {
+      cambioLaCategoria = true;
+      categoriaAnterior = jugador.Categoria;
+    } else {
+      cambioLaCategoria = false;
+    }
+    return cambioLaCategoria;
+  }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
   cardsContainer: {
     marginTop: 20,
+    backgroundColor: "transparent",
+    alignItems: "center",
   },
   categoria: {
+    width: Dimensions.get("window").width,
     textAlign: "center",
-    fontSize: 16,
-    paddingVertical: 10,
-    backgroundColor: "blue",
+    fontSize: 18,
+    paddingVertical: 18,
+    backgroundColor: "#0038ba",
     color: "white",
     fontWeight: "bold",
     marginBottom: 15,
+    letterSpacing: 0.7,
     marginTop: 5,
   },
 });
