@@ -1,6 +1,7 @@
 import React, { Component, useState } from "react";
 import { Alert, TextInput, View, StyleSheet } from "react-native";
 import Button from "../../../components/Button";
+import Spinner from "../../../components/Spinner";
 import { Text } from "../../../components/Themed";
 import CommonStyles from "../../../constants/CommonStyles";
 import useLogin from "./../hooks/useLogin";
@@ -42,7 +43,11 @@ export default function LoginForm(props: Props) {
         style={CommonStyles.input}
       />
 
-      <Button title="Ingresar" onPress={loguearse} />
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        <Button title="Ingresar" onPress={loguearse} />
+      )}
       {error != "" && <Text style={CommonStyles.error}>{error}</Text>}
     </View>
   );

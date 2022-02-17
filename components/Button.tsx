@@ -1,5 +1,6 @@
 import React from "react";
 import { Text, View, StyleSheet, Pressable } from "react-native";
+import Colors from "../constants/Colors";
 
 interface Props {
   onPress: () => void;
@@ -23,7 +24,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 32,
     borderRadius: 4,
     elevation: 3,
-    backgroundColor: "#01aa59",
+    backgroundColor: Colors.verde,
   },
   text: {
     fontSize: 16,

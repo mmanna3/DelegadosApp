@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { TextInput, View, StyleSheet } from "react-native";
 import Button from "../../../components/Button";
+import Spinner from "../../../components/Spinner";
 import { Text } from "../../../components/Themed";
 import Colors from "../../../constants/Colors";
 import CommonStyles from "../../../constants/CommonStyles";
@@ -37,7 +38,11 @@ export default function GetJugadoresForm(props: Props) {
         placeholder="Por ejemplo: 0AAA000"
         style={CommonStyles.input}
       />
-      <Button title="Ver jugadores" onPress={obtenerJugadores} />
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        <Button title="Ver jugadores" onPress={obtenerJugadores} />
+      )}
       {error != "" && <Text style={CommonStyles.error}>{error}</Text>}
     </View>
   );

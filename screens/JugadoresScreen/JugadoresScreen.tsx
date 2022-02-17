@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Dimensions, ScrollView, StyleSheet } from "react-native";
 import ContainerWithBackground from "../../components/ContainerWithBackground";
 import { Text, View } from "../../components/Themed";
+import Colors from "../../constants/Colors";
 import { RootTabScreenProps } from "../../types";
 import GetJugadoresForm from "./components/GetJugadoresForm";
 import JugadorCard from "./components/JugadorCard";
@@ -13,32 +14,30 @@ export default function JugadoresScreen({
   let categoriaAnterior: string = "";
 
   return (
-    <>
-      <ContainerWithBackground>
-        <ScrollView>
-          <GetJugadoresForm
-            onSuccess={(res) => setJugadores(res)}
-            beforeRequest={() => setJugadores([])}
-          />
-          <View style={styles.cardsContainer}>
-            {jugadores.map((jugador) => {
-              return (
-                <>
-                  {cambioLaCategoria(jugador) ? (
-                    <Text style={styles.categoria}>
-                      Categoría {jugador.Categoria}
-                    </Text>
-                  ) : (
-                    <></>
-                  )}
-                  <JugadorCard key={jugador.DNI} jugador={jugador} />
-                </>
-              );
-            })}
-          </View>
-        </ScrollView>
-      </ContainerWithBackground>
-    </>
+    <ContainerWithBackground>
+      <ScrollView>
+        <GetJugadoresForm
+          onSuccess={(res) => setJugadores(res)}
+          beforeRequest={() => setJugadores([])}
+        />
+        <View style={styles.cardsContainer}>
+          {jugadores.map((jugador) => {
+            return (
+              <>
+                {cambioLaCategoria(jugador) ? (
+                  <Text style={styles.categoria}>
+                    Categoría {jugador.Categoria}
+                  </Text>
+                ) : (
+                  <></>
+                )}
+                <JugadorCard key={jugador.DNI} jugador={jugador} />
+              </>
+            );
+          })}
+        </View>
+      </ScrollView>
+    </ContainerWithBackground>
   );
 
   function cambioLaCategoria(jugador: IJugador) {
@@ -65,7 +64,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 18,
     paddingVertical: 18,
-    backgroundColor: "#0038ba",
+    backgroundColor: Colors.azul,
     color: "white",
     fontWeight: "bold",
     marginBottom: 15,

@@ -5,10 +5,11 @@ interface Props {
 }
 
 const useGetJugadores = () => {
-  const [isLoading, setLoading] = useState(true);
+  const [isLoading, setLoading] = useState(false);
 
   const getJugadores = async (props: Props): Promise<ApiResponse> => {
     try {
+      setLoading(true);
       const response = await fetch(
         `https://www.edefi.com.ar/Appdelegados/GetJugadores?codigoAlfanumerico=${props.codigoAlfanumerico}`,
         {

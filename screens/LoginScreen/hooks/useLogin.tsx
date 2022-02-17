@@ -6,9 +6,10 @@ interface DatosUsuario {
 }
 
 const useLogin = () => {
-  const [isLoading, setLoading] = useState(true);
+  const [isLoading, setLoading] = useState(false);
 
   const login = async (props: DatosUsuario) => {
+    setLoading(true);
     let formData = new FormData();
     formData.append("Email", props.Email);
     formData.append("Password", props.Password);
