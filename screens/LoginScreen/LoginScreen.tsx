@@ -2,6 +2,7 @@ import React from "react";
 import { StyleSheet } from "react-native";
 import ContainerWithBackground from "../../components/ContainerWithBackground";
 import { Text, View } from "../../components/Themed";
+import Colors from "../../constants/Colors";
 import { RootTabScreenProps } from "../../types";
 import LoginForm from "./components/LoginForm";
 
@@ -26,7 +27,7 @@ const styles = StyleSheet.create({
   cabecera: {
     marginTop: 80,
     paddingTop: 20,
-    backgroundColor: "rgba(210, 210, 210, 0.6)",
+    backgroundColor: Colors.fondoDeTexto,
   },
   title: {
     fontSize: 32,

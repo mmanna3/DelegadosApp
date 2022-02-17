@@ -6,6 +6,7 @@ import {
   StyleSheet,
   TextInput,
 } from "react-native";
+import ContainerWithBackground from "../../components/ContainerWithBackground";
 import { Text, View } from "../../components/Themed";
 import { RootTabScreenProps } from "../../types";
 import GetJugadoresForm from "./components/GetJugadoresForm";
@@ -19,7 +20,7 @@ export default function JugadoresScreen({
 
   return (
     <>
-      <SafeAreaView style={styles.container}>
+      <ContainerWithBackground>
         <ScrollView>
           <GetJugadoresForm onSuccess={(res) => setJugadores(res)} />
           <View style={styles.cardsContainer}>
@@ -48,7 +49,7 @@ export default function JugadoresScreen({
             })}
           </View>
         </ScrollView>
-      </SafeAreaView>
+      </ContainerWithBackground>
     </>
   );
 }
