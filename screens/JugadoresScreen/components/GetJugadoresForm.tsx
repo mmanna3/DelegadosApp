@@ -13,7 +13,7 @@ interface Props {
 }
 
 export default function GetJugadoresForm(props: Props) {
-  const [codigoEquipo, setCodigoEquipo] = useState("0GLS268");
+  const [codigoEquipo, setCodigoEquipo] = useState("GLS0268");
   const [error, setError] = useState("");
 
   const { getJugadores, isLoading } = useGetJugadores();
@@ -35,7 +35,7 @@ export default function GetJugadoresForm(props: Props) {
       <TextInput
         value={codigoEquipo}
         onChangeText={(codigoEquipo) => setCodigoEquipo(codigoEquipo)}
-        placeholder="Por ejemplo: 0AAA000"
+        placeholder="Por ejemplo: AAA1234"
         style={CommonStyles.input}
       />
       {isLoading ? (
