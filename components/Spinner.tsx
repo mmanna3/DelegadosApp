@@ -5,7 +5,7 @@ import Colors from "../constants/Colors";
 export default function Spinner() {
   return (
     <View style={styles.container}>
-      <ActivityIndicator size={75} color={Colors.azul} />
+      <ActivityIndicator size={75} color={Colors.verde} />
     </View>
   );
 }

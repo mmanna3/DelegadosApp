@@ -13,7 +13,7 @@ interface Props {
 }
 
 export default function GetJugadoresForm(props: Props) {
-  const [codigoEquipo, setCodigoEquipo] = useState("GLS0268");
+  const [codigoEquipo, setCodigoEquipo] = useState("");
   const [error, setError] = useState("");
 
   const { getJugadores, isLoading } = useGetJugadores();
