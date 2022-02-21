@@ -10,7 +10,7 @@ const useGetJugadores = () => {
   const getJugadores = async (props: Props): Promise<ApiResponse> => {
     try {
       setLoading(true);
-      console.log(`Empieza request ${new Date().toUTCString()}`);
+      // console.log(`Empieza request ${new Date().toUTCString()}`);
       const response = await fetch(
         `https://www.edefi.com.ar/Appdelegados/GetJugadores?codigoAlfanumerico=${props.codigoAlfanumerico}`,
         {
@@ -27,7 +27,7 @@ const useGetJugadores = () => {
         contenido: null,
       };
     } finally {
-      console.log(`Termina request ${new Date().toUTCString()}`);
+      // console.log(`Termina request ${new Date().toUTCString()}`);
       setLoading(false);
     }
   };

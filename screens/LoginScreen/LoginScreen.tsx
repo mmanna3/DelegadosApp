@@ -33,24 +33,25 @@ const styles = StyleSheet.create({
   logoContainer: {
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: 30,
+    marginBottom: 20,
   },
   logo: {
-    width: 170,
-    height: 170,
+    width: 140,
+    height: 140,
   },
   cabecera: {
-    marginTop: 80,
+    marginTop: 60,
     paddingTop: 20,
   },
   title: {
-    fontSize: 32,
+    fontSize: 30,
     fontWeight: "bold",
     textAlign: "center",
   },
   subtitulo: {
     fontSize: 20,
-    marginVertical: 25,
+    marginTop: 20,
+    marginBottom: 5,
     marginHorizontal: 30,
     textAlign: "center",
   },
