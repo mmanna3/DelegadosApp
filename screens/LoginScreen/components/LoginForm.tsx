@@ -19,7 +19,7 @@ export default function LoginForm(props: Props) {
 
   const loguearse = async () => {
     setError("");
-    const resultado = await login({ Email: usuario, Password: password });
+    const resultado = await login({ Usuario: usuario, Password: password });
     if (resultado.LoginExitoso == true) {
       props.onSuccess();
     } else {
@@ -32,7 +32,7 @@ export default function LoginForm(props: Props) {
       <TextInput
         value={usuario}
         onChangeText={(usuario) => setUsuario(usuario)}
-        placeholder="Email"
+        placeholder="Usuario"
         style={CommonStyles.input}
       />
       <TextInput

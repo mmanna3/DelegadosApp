@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 interface DatosUsuario {
-  Email: string;
+  Usuario: string;
   Password: string;
 }
 
@@ -11,7 +11,7 @@ const useLogin = () => {
   const login = async (props: DatosUsuario) => {
     setLoading(true);
     let formData = new FormData();
-    formData.append("Email", props.Email);
+    formData.append("Usuario", props.Usuario);
     formData.append("Password", props.Password);
 
     try {
