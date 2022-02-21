@@ -8,4 +8,5 @@ interface IJugador {
   TipoLiga: string;
   Categoria: string;
   FotoBase64: string;
+  EstaSuspendido: boolean;
 }
