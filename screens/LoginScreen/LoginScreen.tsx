@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, Image } from "react-native";
 import ContainerWithBackground from "../../components/ContainerWithBackground";
 import { Text, View } from "../../components/Themed";
 import Colors from "../../constants/Colors";
@@ -12,6 +12,12 @@ export default function LoginScreen({
   return (
     <ContainerWithBackground>
       <View style={styles.cabecera}>
+        <View style={styles.logoContainer}>
+          <Image
+            source={require("../../assets/images/logo.png")}
+            style={styles.logo}
+          />
+        </View>
         <Text style={styles.title}>EDeFI Delegados</Text>
         <Text style={styles.subtitulo}>
           ¡Bienvenido, delegado! Si no tenés usuario, comunicate con la
@@ -24,10 +30,18 @@ export default function LoginScreen({
 }
 
 const styles = StyleSheet.create({
+  logoContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 30,
+  },
+  logo: {
+    width: 170,
+    height: 170,
+  },
   cabecera: {
     marginTop: 80,
     paddingTop: 20,
-    backgroundColor: Colors.fondoDeTexto,
   },
   title: {
     fontSize: 32,
@@ -36,7 +50,7 @@ const styles = StyleSheet.create({
   },
   subtitulo: {
     fontSize: 20,
-    marginVertical: 30,
+    marginVertical: 25,
     marginHorizontal: 30,
     textAlign: "center",
   },

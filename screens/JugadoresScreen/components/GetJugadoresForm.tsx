@@ -56,7 +56,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   texto: {
-    backgroundColor: Colors.fondoDeTexto,
     paddingVertical: 10,
     paddingHorizontal: 10,
     marginBottom: 10,

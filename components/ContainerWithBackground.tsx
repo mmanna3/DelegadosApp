@@ -6,26 +6,14 @@ interface IProps {
 }
 
 export default function ContainerWithBackground({ children }: IProps) {
-  return (
-    <View style={styles.container}>
-      <ImageBackground
-        source={require("../assets/images/background.jpg")}
-        resizeMode="cover"
-        style={styles.background}
-      >
-        {children}
-      </ImageBackground>
-    </View>
-  );
+  return <View style={styles.container}>{children}</View>;
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  background: {
-    flex: 1,
     alignItems: "center",
     justifyContent: "center",
+    backgroundColor: "white",
   },
 });

@@ -21,9 +21,9 @@ export default function JugadoresScreen({
           beforeRequest={() => setJugadores([])}
         />
         <View style={styles.cardsContainer}>
-          {jugadores.map((jugador) => {
+          {jugadores.map((jugador, index) => {
             return (
-              <>
+              <View key={index} style={styles.container}>
                 {cambioLaCategoria(jugador) ? (
                   <Text style={styles.categoria}>
                     Categoría {jugador.Categoria}
@@ -32,7 +32,7 @@ export default function JugadoresScreen({
                   <></>
                 )}
                 <JugadorCard key={jugador.DNI} jugador={jugador} />
-              </>
+              </View>
             );
           })}
         </View>
@@ -57,6 +57,9 @@ const styles = StyleSheet.create({
   cardsContainer: {
     marginTop: 20,
     backgroundColor: "transparent",
+    alignItems: "center",
+  },
+  container: {
     alignItems: "center",
   },
   categoria: {

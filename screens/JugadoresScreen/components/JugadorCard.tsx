@@ -8,7 +8,7 @@ interface Props {
 export default function JugadorCard(props: Props) {
   const { jugador } = props;
   return (
-    <View style={jugador.EstaSuspendido ? styles.cardSuspendida : styles.card}>
+    <View style={styles.card}>
       {jugador.EstaSuspendido && (
         <Text style={styles.datoSuspendido}>JUGADOR SUSPENDIDO</Text>
       )}
@@ -70,8 +70,9 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "white",
     borderRadius: 10,
-    paddingVertical: 10,
-    paddingHorizontal: 3,
+    paddingVertical: 7,
+    paddingHorizontal: 4,
+    backgroundColor: "red",
   },
   dato: {
     marginBottom: 3,
