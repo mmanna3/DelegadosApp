@@ -23,13 +23,13 @@ export default function JugadorCard(props: Props) {
     <View style={styles.card}>
       {jugador.EstaSuspendido && (
         <Text style={styles.datoSuspendido}>JUGADOR SUSPENDIDO</Text>
-      )}
+      )}        
       <Text style={styles.equipo}>
         {primeraMayuscRestoMinusc(jugador.Equipo)}
       </Text>
       <Text style={styles.tipoLiga}>
         {primeraMayuscRestoMinusc(jugador.TipoLiga)}
-      </Text>
+      </Text>        
       <Image
         style={styles.foto}
         source={{ uri: `data:image/jpeg;base64,${jugador.FotoBase64}` }}
@@ -92,16 +92,14 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   datoSuspendido: {
-    marginBottom: 30,
-    marginTop: 15,
+    width: 280,
     fontSize: 20,
-    lineHeight: 21,
+    lineHeight: 21,    
     fontWeight: "bold",
     letterSpacing: 0.4,
     color: "white",
     borderWidth: 1,
     borderColor: "white",
-    borderRadius: 10,
     paddingVertical: 7,
     paddingHorizontal: 4,
     backgroundColor: "red",
