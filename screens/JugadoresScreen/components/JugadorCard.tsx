@@ -34,13 +34,12 @@ export default function JugadorCard(props: Props) {
         style={styles.foto}
         source={{ uri: `data:image/jpeg;base64,${jugador.FotoBase64}` }}
       />
-      <View style={styles.datosContenedor}>
-        <View>
-          <Text style={styles.datoVerde}>{jugador.DNI}</Text>
-          <Text style={styles.datoAzul}>{jugador.Nombre}</Text>
-          <Text style={styles.datoAzul}>{jugador.Apellido}</Text>
-          <Text style={styles.datoRojo}>{jugador.FechaNacimiento}</Text>
-        </View>        
+      <View style={styles.datosContenedor}>        
+        <Text style={styles.datoVerde}>{jugador.DNI}</Text>
+        <Text style={styles.datoAzul}>{jugador.Nombre}</Text>
+        <Text style={styles.datoAzul}>{jugador.Apellido}</Text>
+        <Text style={styles.datoRojo}>{jugador.FechaNacimiento}</Text>
+        <Text style={styles.categoria}>Cat. {jugador.Categoria}</Text>
       </View>
       <Image
           source={require("../../../assets/images/logo.png")}
@@ -58,7 +57,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     paddingVertical: 25,
     paddingHorizontal: 32,
-    elevation: 6,
     backgroundColor: "red",
     justifyContent: "center",
     alignItems: "center",
@@ -66,25 +64,25 @@ const styles = StyleSheet.create({
   card: {
     marginBottom: 10,
     width: 300,
-    height: 430,
+    height: 450,
     borderRadius: 20,
     paddingVertical: 25,
     paddingHorizontal: 32,
-    elevation: 6,
     borderColor: Colors.azul,
     borderWidth: 1.5,
     justifyContent: "center",
     alignItems: "center",
   },
   equipo: {
-    fontSize: 19,
+    marginTop: 10,
+    fontSize: 22,
     lineHeight: 21,
     fontWeight: "bold",
     letterSpacing: 0.40,
     color: Colors.verde,
   },
   tipoLiga: {
-    fontSize: 19,
+    fontSize: 22,
     lineHeight: 21,
     fontWeight: "bold",
     letterSpacing: 0.40,
@@ -111,6 +109,8 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     letterSpacing: 0.4,
     color: Colors.rojo,
+    width: 200,
+    textAlign: "center",
   },
   datoVerde: {
     marginBottom: 3,
@@ -119,6 +119,8 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     letterSpacing: 0.4,
     color: Colors.verde,
+    width: 200,
+    textAlign: "center",
   },
   datoAzul: {
     marginBottom: 3,
@@ -127,6 +129,18 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     letterSpacing: 0.4,
     color: Colors.azul,
+    width: 200,
+    textAlign: "center",
+  },
+  categoria: {
+    marginBottom: 10,
+    fontSize: 22,
+    lineHeight: 21,
+    fontWeight: "bold",
+    letterSpacing: 0.4,
+    color: Colors.azul,
+    width: 200,
+    textAlign: "center",
   },
   foto: {
     marginVertical: 15,
@@ -137,15 +151,17 @@ const styles = StyleSheet.create({
     borderColor: Colors.azul,
   },
   logo: {
-    width: 70,
-    height: 70,
+    width: 72,
+    height: 72,
     position: 'absolute',
-    top: 350,
-    left: 220,
+    bottom: 10,
+    right: 5,
     opacity: 0.5,
   },
   datosContenedor: {
     display: "flex",
-    flexDirection: "row",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: 'center'
   }
 });
