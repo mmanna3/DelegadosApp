@@ -13,6 +13,7 @@ No te olvides de antes subirle el versionCode en el app.json
     eas submit -p android
 
 ## Buildear y subir al store directamente
-No te olvides de antes subirle el versionCode en el app.json
+Subirle el version y el android.versionCode en el app.json.
+Después ejecutar:
 
     eas build --platform android --auto-submit

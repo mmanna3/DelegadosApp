@@ -2,14 +2,14 @@
   "expo": {
     "name": "EDeFI-Delegados",
     "slug": "EDeFI-Delegados",
-    "version": "1.2.0",
+    "version": "1.4.0",
     "orientation": "portrait",
     "icon": "./assets/images/logo.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./assets/images/logo.png",
-      "resizeMode": "native",
+      "resizeMode": "contain",
       "backgroundColor": "#01aa59"
     },
     "updates": {
@@ -23,7 +23,7 @@
     },
     "android": {
       "package": "com.ykn.edefidelegados",
-      "versionCode": 4,
+      "versionCode": 6,
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
