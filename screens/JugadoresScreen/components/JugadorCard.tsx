@@ -21,25 +21,44 @@ export default function JugadorCard(props: Props) {
   const { jugador } = props;
   return (
     <View style={styles.card}>
-      {jugador.EstaSuspendido && (
+      {jugador.EstaSuspendido ? <>
         <Text style={styles.datoSuspendido}>JUGADOR SUSPENDIDO</Text>
-      )}        
-      <Text style={styles.equipo}>
+        <Text style={styles.equipoSuspendido}>
+        {primeraMayuscRestoMinusc(jugador.Equipo)}
+      </Text>
+      <Text style={styles.tipoLigaSuspendido}>
+        {primeraMayuscRestoMinusc(jugador.TipoLiga)}
+      </Text> 
+      </>: <>
+        <Text style={styles.equipo}>
         {primeraMayuscRestoMinusc(jugador.Equipo)}
       </Text>
       <Text style={styles.tipoLiga}>
         {primeraMayuscRestoMinusc(jugador.TipoLiga)}
       </Text>        
+      </>}        
+      
       <Image
         style={styles.foto}
         source={{ uri: `data:image/jpeg;base64,${jugador.FotoBase64}` }}
       />
-      <View style={styles.datosContenedor}>        
-        <Text style={styles.datoVerde}>{jugador.DNI}</Text>
-        <Text style={styles.datoAzul}>{jugador.Nombre}</Text>
-        <Text style={styles.datoAzul}>{jugador.Apellido}</Text>
-        <Text style={styles.datoRojo}>{jugador.FechaNacimiento}</Text>
-        <Text style={styles.categoria}>Cat. {jugador.Categoria}</Text>
+      <View style={styles.datosContenedor}>
+        {!jugador.EstaSuspendido ? 
+        <>
+          <Text style={styles.datoVerde}>{jugador.DNI}</Text>
+          <Text style={styles.datoAzul}>{jugador.Nombre}</Text>
+          <Text style={styles.datoAzul}>{jugador.Apellido}</Text>
+          <Text style={styles.datoRojo}>{jugador.FechaNacimiento}</Text>
+          <Text style={styles.categoria}>Cat. {jugador.Categoria}</Text>
+        </> : 
+        <>
+          <Text style={styles.datoNegro}>{jugador.DNI}</Text>
+          <Text style={styles.datoNegro}>{jugador.Nombre}</Text>
+          <Text style={styles.datoNegro}>{jugador.Apellido}</Text>
+          <Text style={styles.datoNegro}>{jugador.FechaNacimiento}</Text>
+          <Text style={styles.datoNegro}>Cat. {jugador.Categoria}</Text>
+        </>}        
+        
       </View>
       <Image
           source={require("../../../assets/images/logo.png")}
@@ -80,6 +99,22 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     letterSpacing: 0.40,
     color: Colors.verde,
+  },
+  equipoSuspendido: {
+    marginTop: 10,
+    fontSize: 22,
+    lineHeight: 21,
+    fontWeight: "bold",
+    letterSpacing: 0.40,
+    color: '#000',
+  },
+  tipoLigaSuspendido: {
+    marginTop: 10,
+    fontSize: 22,
+    lineHeight: 21,
+    fontWeight: "bold",
+    letterSpacing: 0.40,
+    color: '#000',
   },
   tipoLiga: {
     fontSize: 22,
@@ -129,6 +164,16 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     letterSpacing: 0.4,
     color: Colors.azul,
+    width: 200,
+    textAlign: "center",
+  },
+  datoNegro: {
+    marginBottom: 3,
+    fontSize: 17,
+    lineHeight: 21,
+    fontWeight: "bold",
+    letterSpacing: 0.4,
+    color: '#000',
     width: 200,
     textAlign: "center",
   },
