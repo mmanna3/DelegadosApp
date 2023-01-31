@@ -21,8 +21,9 @@ export default function JugadorCard(props: Props) {
   const { jugador } = props;  
   return (
     <View style={styles.card}>
-      {jugador.Estado === 'Suspendido' ? <>
-        <Text style={styles.datoSuspendido}>JUGADOR SUSPENDIDO</Text>
+      {jugador.Estado !== 'Activo' ? <>
+        {jugador.Estado === 'Suspendido' && <Text style={styles.datoSuspendido}>JUGADOR SUSPENDIDO</Text>}
+        {jugador.Estado === 'Inhabilitado' && <Text style={styles.datoInhabilitado}>JUGADOR INHABILITADO</Text>}
         <Text style={styles.equipoSuspendido}>
         {primeraMayuscRestoMinusc(jugador.Equipo)}
       </Text>
@@ -43,7 +44,7 @@ export default function JugadorCard(props: Props) {
         source={{ uri: `data:image/jpeg;base64,${jugador.FotoBase64}` }}
       />
       <View style={styles.datosContenedor}>
-        {jugador.Estado !== 'Suspendido' ? 
+        {jugador.Estado === 'Activo' ? 
         <>
           <Text style={styles.datoVerde}>{jugador.DNI}</Text>
           <Text style={styles.datoAzul}>{jugador.Nombre}</Text>
@@ -83,7 +84,7 @@ const styles = StyleSheet.create({
   card: {
     marginBottom: 10,
     width: 300,
-    height: 450,
+    height: 460,
     borderRadius: 20,
     paddingVertical: 25,
     paddingHorizontal: 32,
@@ -124,9 +125,22 @@ const styles = StyleSheet.create({
     color: Colors.verde,
     marginTop: 5,
   },
+  datoInhabilitado: {
+    textAlign: 'center',
+    width: 280,
+    fontSize: 20,
+    lineHeight: 21,    
+    fontWeight: "bold",
+    letterSpacing: 0.4,
+    color: "white",
+    borderWidth: 1,
+    borderColor: "white",
+    paddingVertical: 7,
+    paddingHorizontal: 4,
+    backgroundColor: "#111",
+  },
   datoSuspendido: {
     textAlign: 'center',
-    marginTop: 10,
     width: 280,
     fontSize: 20,
     lineHeight: 21,    
