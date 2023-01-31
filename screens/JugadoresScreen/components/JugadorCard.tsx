@@ -18,10 +18,10 @@ export default function JugadorCard(props: Props) {
     return resultado;    
   }
 
-  const { jugador } = props;
+  const { jugador } = props;  
   return (
     <View style={styles.card}>
-      {jugador.EstaSuspendido ? <>
+      {jugador.Estado === 'Suspendido' ? <>
         <Text style={styles.datoSuspendido}>JUGADOR SUSPENDIDO</Text>
         <Text style={styles.equipoSuspendido}>
         {primeraMayuscRestoMinusc(jugador.Equipo)}
@@ -43,7 +43,7 @@ export default function JugadorCard(props: Props) {
         source={{ uri: `data:image/jpeg;base64,${jugador.FotoBase64}` }}
       />
       <View style={styles.datosContenedor}>
-        {!jugador.EstaSuspendido ? 
+        {jugador.Estado !== 'Suspendido' ? 
         <>
           <Text style={styles.datoVerde}>{jugador.DNI}</Text>
           <Text style={styles.datoAzul}>{jugador.Nombre}</Text>
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
   cardSuspendida: {
     marginBottom: 10,
     width: 300,
-    height: 430,
+    height: 450,
     borderRadius: 10,
     paddingVertical: 25,
     paddingHorizontal: 32,
@@ -125,6 +125,8 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   datoSuspendido: {
+    textAlign: 'center',
+    marginTop: 10,
     width: 280,
     fontSize: 20,
     lineHeight: 21,    

@@ -1,4 +1,5 @@
 interface IJugador {
+  Estado: string;
   Nombre: string;
   Apellido: string;
   DNI: string;
