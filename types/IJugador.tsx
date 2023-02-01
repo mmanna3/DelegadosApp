@@ -9,6 +9,8 @@ export interface IJugador {
   TipoLiga: string;
   Categoria: string;
   FotoBase64: string;
+  TarjetasAmarillas: number;
+  TarjetasRojas: number;
 }
 
 export enum EstadoJugadorEnum {

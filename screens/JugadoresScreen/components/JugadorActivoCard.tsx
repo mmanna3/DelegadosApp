@@ -2,6 +2,7 @@ import React from "react";
 import { Image, Text, View } from "react-native";
 import { IJugador } from "../../../types/IJugador";
 import { styles } from "./JugadorCardEstilos";
+import Tarjetas from "./Tarjetas";
 
 interface Props {
   jugador: IJugador;
@@ -47,6 +48,10 @@ export default function JugadorActivoCard(props: Props) {
       <Image
         source={require("../../../assets/images/logo.png")}
         style={styles.logo}
+      />
+      <Tarjetas
+        amarillas={jugador.TarjetasAmarillas}
+        rojas={jugador.TarjetasRojas}
       />
     </View>
   );
