@@ -34,6 +34,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginBottom: 20,
+    backgroundColor: "white",
   },
   logo: {
     width: 140,
@@ -42,11 +43,13 @@ const styles = StyleSheet.create({
   cabecera: {
     marginTop: 60,
     paddingTop: 20,
+    backgroundColor: "white",    
   },
   title: {
     fontSize: 30,
     fontWeight: "bold",
     textAlign: "center",
+    color: "black"
   },
   subtitulo: {
     fontSize: 20,
@@ -54,6 +57,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     marginHorizontal: 30,
     textAlign: "center",
+    color: "black"
   },
   separator: {
     marginVertical: 30,

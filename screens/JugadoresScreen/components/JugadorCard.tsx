@@ -92,6 +92,7 @@ const styles = StyleSheet.create({
     borderWidth: 1.5,
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: "white",
   },
   equipo: {
     marginTop: 10,

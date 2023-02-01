@@ -29,10 +29,11 @@ export default function LoginForm(props: Props) {
 
   return (
     <View style={styles.container}>
-      <TextInput
+      <TextInput        
         value={usuario}
         onChangeText={(usuario) => setUsuario(usuario)}
         placeholder="Usuario"
+        placeholderTextColor="#555"
         style={CommonStyles.input}
       />
       <TextInput
@@ -40,6 +41,7 @@ export default function LoginForm(props: Props) {
         secureTextEntry={true}
         onChangeText={(password) => setPassword(password)}
         placeholder="Contraseña"
+        placeholderTextColor="#555"
         style={CommonStyles.input}
       />
 

@@ -56,11 +56,12 @@ export default function JugadoresScreen({
 const styles = StyleSheet.create({
   cardsContainer: {
     marginTop: 20,
-    backgroundColor: "transparent",
+    backgroundColor: "white",
     alignItems: "center",
   },
   container: {
     alignItems: "center",
+    backgroundColor: "white",
   },
   categoria: {
     width: Dimensions.get("window").width,
