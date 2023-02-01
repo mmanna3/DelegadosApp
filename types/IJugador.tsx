@@ -1,5 +1,5 @@
-interface IJugador {
-  Estado: string;
+export interface IJugador {
+  Estado: EstadoJugadorEnum;
   Nombre: string;
   Apellido: string;
   DNI: string;
@@ -9,5 +9,10 @@ interface IJugador {
   TipoLiga: string;
   Categoria: string;
   FotoBase64: string;
-  EstaSuspendido: boolean;
+}
+
+export enum EstadoJugadorEnum {
+  Activo = 1,
+  Inhabilitado = 2,
+  Suspendido = 3  
 }

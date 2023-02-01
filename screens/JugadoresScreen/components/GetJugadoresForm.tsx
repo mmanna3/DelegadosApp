@@ -3,8 +3,8 @@ import { TextInput, View, StyleSheet } from "react-native";
 import Button from "../../../components/Button";
 import Spinner from "../../../components/Spinner";
 import { Text } from "../../../components/Themed";
-import Colors from "../../../constants/Colors";
 import CommonStyles from "../../../constants/CommonStyles";
+import { IJugador } from "../../../types/IJugador";
 import useGetJugadores from "./../hooks/useGetJugadores";
 
 interface Props {
