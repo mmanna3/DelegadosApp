@@ -14,5 +14,5 @@ export interface IJugador {
 export enum EstadoJugadorEnum {
   Activo = 1,
   Inhabilitado = 2,
-  Suspendido = 3  
+  Suspendido = 3,
 }

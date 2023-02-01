@@ -8,11 +8,9 @@ import GetJugadoresForm from "./components/GetJugadoresForm";
 import JugadorActivoCard from "./components/JugadorActivoCard";
 import JugadorInhabilitadoCard from "./components/JugadorInhablitadoCard";
 import JugadorSuspendidoCard from "./components/JugadorSuspendidoCard";
-import {IJugador, EstadoJugadorEnum } from "./../../types/IJugador"
+import { IJugador, EstadoJugadorEnum } from "./../../types/IJugador";
 
-export default function JugadoresScreen({
-  navigation,
-}: RootTabScreenProps<"TabOne">) {
+export default function JugadoresScreen({}: RootTabScreenProps<"TabOne">) {
   const [jugadores, setJugadores] = useState<IJugador[]>([]);
   let categoriaAnterior: string = "";
 
@@ -24,7 +22,7 @@ export default function JugadoresScreen({
           beforeRequest={() => setJugadores([])}
         />
         <View style={styles.cardsContainer}>
-          {jugadores.map((jugador, index) => {            
+          {jugadores.map((jugador, index) => {
             return (
               <View key={index} style={styles.container}>
                 {cambioLaCategoria(jugador) ? (
@@ -35,13 +33,20 @@ export default function JugadoresScreen({
                   <></>
                 )}
                 <>
-                {jugador.Estado === EstadoJugadorEnum.Activo ? (<JugadorActivoCard key={jugador.DNI} jugador={jugador} />): 
-                  jugador.Estado === EstadoJugadorEnum.Suspendido ? (<JugadorInhabilitadoCard key={jugador.DNI} jugador={jugador} />): 
-                    jugador.Estado === EstadoJugadorEnum.Inhabilitado ? (<JugadorSuspendidoCard key={jugador.DNI} jugador={jugador} />): null}
+                  {jugador.Estado === EstadoJugadorEnum.Activo ? (
+                    <JugadorActivoCard key={jugador.DNI} jugador={jugador} />
+                  ) : jugador.Estado === EstadoJugadorEnum.Suspendido ? (
+                    <JugadorInhabilitadoCard
+                      key={jugador.DNI}
+                      jugador={jugador}
+                    />
+                  ) : jugador.Estado === EstadoJugadorEnum.Inhabilitado ? (
+                    <JugadorSuspendidoCard
+                      key={jugador.DNI}
+                      jugador={jugador}
+                    />
+                  ) : null}
                 </>
-                
-                
-                
               </View>
             );
           })}

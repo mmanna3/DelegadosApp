@@ -1,35 +1,37 @@
 import React from "react";
-import { Text, View, StyleSheet, Image } from "react-native";
+import { Text, View, Image } from "react-native";
 import { IJugador } from "../../../types/IJugador";
-import {styles} from "./JugadorCardEstilos";
+import { styles } from "./JugadorCardEstilos";
 
 interface Props {
   jugador: IJugador;
 }
 
 export default function JugadorInhabilitadoCard(props: Props) {
-  const primeraMayuscRestoMinusc = (texto: string) => {    
+  const primeraMayuscRestoMinusc = (texto: string) => {
     const palabras = texto.split(" ");
     let resultado = "";
-    
-    palabras.forEach((palabra) => {
-      resultado += `${palabra.charAt(0).toUpperCase() + palabra.slice(1).toLowerCase() + " "}`;
-    })
-    
-    return resultado;    
-  }
 
-  const { jugador } = props;  
+    palabras.forEach((palabra) => {
+      resultado += `${
+        palabra.charAt(0).toUpperCase() + palabra.slice(1).toLowerCase() + " "
+      }`;
+    });
+
+    return resultado;
+  };
+
+  const { jugador } = props;
   return (
     <View style={styles.card}>
-        <Text style={styles.datoSuspendido}>JUGADOR SUSPENDIDO</Text>
-        <Text style={styles.equipoSuspendido}>
+      <Text style={styles.datoSuspendido}>JUGADOR SUSPENDIDO</Text>
+      <Text style={styles.equipoSuspendido}>
         {primeraMayuscRestoMinusc(jugador.Equipo)}
       </Text>
       <Text style={styles.tipoLigaSuspendido}>
         {primeraMayuscRestoMinusc(jugador.TipoLiga)}
-      </Text>              
-      
+      </Text>
+
       <Image
         style={styles.foto}
         source={{ uri: `data:image/jpeg;base64,${jugador.FotoBase64}` }}
@@ -41,13 +43,12 @@ export default function JugadorInhabilitadoCard(props: Props) {
           <Text style={styles.datoNegro}>{jugador.Apellido}</Text>
           <Text style={styles.datoNegro}>{jugador.FechaNacimiento}</Text>
           <Text style={styles.datoNegro}>Cat. {jugador.Categoria}</Text>
-        </>       
-        
+        </>
       </View>
       <Image
-          source={require("../../../assets/images/logo.png")}
-          style={styles.logo}
-        />
+        source={require("../../../assets/images/logo.png")}
+        style={styles.logo}
+      />
     </View>
   );
 }
