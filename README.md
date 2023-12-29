@@ -22,7 +22,7 @@
 ## Otras cosas
 ### Build APK e instalar en teléfono
 
-    eas build -p android --profile apk
+    eas build -p android --profile apk (ahí aparece la opción para abrir en el emulador)
     adb install app.apk
 
 ### Build Android Bundle para store (.aab)
@@ -33,3 +33,7 @@ No te olvides de antes subirle el versionCode en el app.json
 ### Después de buildear, subir al store (.aab)
 
     eas submit -p android
+
+### Si no anda EAS, chequear versión
+
+Con node 20 anda bien (nvm use 20)
