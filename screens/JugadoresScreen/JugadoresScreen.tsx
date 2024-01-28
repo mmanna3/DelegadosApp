@@ -3,14 +3,14 @@ import { Dimensions, ScrollView, StyleSheet } from "react-native";
 import ContainerWithBackground from "../../components/ContainerWithBackground";
 import { Text, View } from "../../components/Themed";
 import Colors from "../../constants/Colors";
-import { RootTabScreenProps } from "../../types";
+// import { RootTabScreenProps } from "../../types";
+import { EstadoJugadorEnum, IJugador } from "./../../types/IJugador";
 import GetJugadoresForm from "./components/GetJugadoresForm";
 import JugadorActivoCard from "./components/JugadorActivoCard";
 import JugadorInhabilitadoCard from "./components/JugadorInhablitadoCard";
 import JugadorSuspendidoCard from "./components/JugadorSuspendidoCard";
-import { IJugador, EstadoJugadorEnum } from "./../../types/IJugador";
 
-export default function JugadoresScreen({}: RootTabScreenProps<"TabOne">) {
+export default function JugadoresScreen() {
   const [jugadores, setJugadores] = useState<IJugador[]>([]);
   let categoriaAnterior: string = "";
 

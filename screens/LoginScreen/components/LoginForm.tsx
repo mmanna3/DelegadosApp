@@ -1,5 +1,5 @@
-import React, { Component, useState } from "react";
-import { Alert, TextInput, View, StyleSheet } from "react-native";
+import React, { useState } from "react";
+import { StyleSheet, TextInput, View } from "react-native";
 import Button from "../../../components/Button";
 import Spinner from "../../../components/Spinner";
 import { Text } from "../../../components/Themed";
@@ -29,7 +29,7 @@ export default function LoginForm(props: Props) {
 
   return (
     <View style={styles.container}>
-      <TextInput        
+      <TextInput
         value={usuario}
         onChangeText={(usuario) => setUsuario(usuario)}
         placeholder="Usuario"

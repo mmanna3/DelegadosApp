@@ -1,8 +1,7 @@
 import React from "react";
-import { StyleSheet, Image } from "react-native";
+import { Image, StyleSheet } from "react-native";
 import ContainerWithBackground from "../../components/ContainerWithBackground";
 import { Text, View } from "../../components/Themed";
-import Colors from "../../constants/Colors";
 import { RootTabScreenProps } from "../../types";
 import LoginForm from "./components/LoginForm";
 
@@ -24,7 +23,7 @@ export default function LoginScreen({
           administración de la liga.
         </Text>
       </View>
-      <LoginForm onSuccess={() => navigation.navigate("Jugadores")} />
+      <LoginForm onSuccess={() => navigation.navigate("Principal")} />
     </ContainerWithBackground>
   );
 }
@@ -43,13 +42,13 @@ const styles = StyleSheet.create({
   cabecera: {
     marginTop: 60,
     paddingTop: 20,
-    backgroundColor: "white",    
+    backgroundColor: "white",
   },
   title: {
     fontSize: 30,
     fontWeight: "bold",
     textAlign: "center",
-    color: "black"
+    color: "black",
   },
   subtitulo: {
     fontSize: 20,
@@ -57,7 +56,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     marginHorizontal: 30,
     textAlign: "center",
-    color: "black"
+    color: "black",
   },
   separator: {
     marginVertical: 30,

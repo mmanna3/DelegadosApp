@@ -6,9 +6,9 @@
 import { FontAwesome } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import {
-  NavigationContainer,
-  DefaultTheme,
   DarkTheme,
+  DefaultTheme,
+  NavigationContainer,
 } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import * as React from "react";
@@ -20,6 +20,7 @@ import JugadoresScreen from "../screens/JugadoresScreen/JugadoresScreen";
 import LoginScreen from "../screens/LoginScreen/LoginScreen";
 import ModalScreen from "../screens/ModalScreen";
 import NotFoundScreen from "../screens/NotFoundScreen";
+import PrincipalsScreen from "../screens/PrincipalScreen/PrincipalScreen";
 import TabOneScreen from "../screens/TabOneScreen";
 import TabTwoScreen from "../screens/TabTwoScreen";
 import {
@@ -56,6 +57,11 @@ function RootNavigator() {
       <Stack.Screen
         name="Root"
         component={LoginScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Principal"
+        component={PrincipalsScreen}
         options={{ headerShown: false }}
       />
       <Stack.Screen
