@@ -1,12 +1,16 @@
 import * as React from "react";
-import { View, useWindowDimensions } from "react-native";
+import { Text, View, useWindowDimensions } from "react-native";
 import { SceneMap, TabView } from "react-native-tab-view";
+import { useUsuarioLogueado } from "../../store";
 import JugadoresScreen from "../JugadoresScreen/JugadoresScreen";
 
 const FirstRoute = () => <JugadoresScreen />;
 
 const SecondRoute = () => (
-  <View style={{ flex: 1, backgroundColor: "#ff4081" }} />
+  <>
+    <Text>Jugadores del club: </Text>
+    <View style={{ flex: 1, backgroundColor: "#ff4081" }} />
+  </>
 );
 
 const renderScene = SceneMap({
@@ -16,6 +20,9 @@ const renderScene = SceneMap({
 
 export default function PrincipalsScreen() {
   const layout = useWindowDimensions();
+  const { usuarioLogueado } = useUsuarioLogueado();
+
+  console.log(usuarioLogueado);
 
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([

@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { StyleSheet, TextInput, View } from "react-native";
 import Button from "../../../components/Button";
 import Spinner from "../../../components/Spinner";
 import { Text } from "../../../components/Themed";
 import CommonStyles from "../../../constants/CommonStyles";
+import { useUsuarioLogueado } from "../../../store";
 import useLogin from "./../hooks/useLogin";
 
 interface Props {
@@ -11,6 +12,8 @@ interface Props {
 }
 
 export default function LoginForm(props: Props) {
+  const { setUsuarioLogueado } = useUsuarioLogueado();
+
   const [usuario, setUsuario] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -20,10 +23,17 @@ export default function LoginForm(props: Props) {
   const loguearse = async () => {
     setError("");
     const resultado = await login({ Usuario: usuario, Password: password });
-    if (resultado.LoginExitoso == true) {
+    if (resultado?.LoginExitoso === true) {
+      setUsuarioLogueado({
+        usuario: resultado.Usuario,
+        club: resultado.Club,
+        clubId: resultado.ClubId,
+      });
       props.onSuccess();
     } else {
-      setError(resultado.Error);
+      resultado
+        ? setError(resultado.Error)
+        : setError("No se pudo conectar al servidor");
     }
   };
 
