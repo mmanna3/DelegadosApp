@@ -6,6 +6,7 @@ import { Text } from "../../../components/Themed";
 import CommonStyles from "../../../constants/CommonStyles";
 import { useAppContext } from "../../../store";
 import { IJugador } from "../../../types/IJugador";
+import useGenerarPDF from "../hooks/useGenerarPDF";
 import useGetJugadores from "./../hooks/useGetJugadores";
 
 interface Props {
@@ -19,6 +20,7 @@ export default function GetJugadoresForm(props: Props) {
   const { setJugadores } = useAppContext();
 
   const { getJugadores, isLoading } = useGetJugadores();
+  const { generarPDF, isLoading: PDFisLoading } = useGenerarPDF();
 
   const obtenerJugadores = async () => {
     props.beforeRequest();
@@ -32,10 +34,6 @@ export default function GetJugadoresForm(props: Props) {
     }
   };
 
-  const generarPDF = () => {
-    console.log("generando PDF");
-  };
-
   return (
     <View style={styles.container}>
       <Text style={styles.texto}>Ingresá el código del equipo</Text>
@@ -45,7 +43,7 @@ export default function GetJugadoresForm(props: Props) {
         placeholder="Por ejemplo: AAA1234"
         style={CommonStyles.input}
       />
-      {isLoading ? (
+      {isLoading || PDFisLoading ? (
         <Spinner />
       ) : (
         <View style={styles.botonesContainer}>
