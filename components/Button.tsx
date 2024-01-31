@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, View, StyleSheet, Pressable } from "react-native";
+import { Pressable, StyleSheet, Text } from "react-native";
 import Colors from "../constants/Colors";
 
 interface Props {
@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     paddingVertical: 16,
-    paddingHorizontal: 32,
+    paddingHorizontal: 18,
     borderRadius: 4,
     elevation: 3,
     backgroundColor: Colors.verde,

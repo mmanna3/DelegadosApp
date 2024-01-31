@@ -14,6 +14,7 @@ interface Props {
 
 export default function GetJugadoresForm(props: Props) {
   const [codigoEquipo, setCodigoEquipo] = useState("");
+  const [hayJugadores, setHayJugadores] = useState(false);
   const [error, setError] = useState("");
 
   const { getJugadores, isLoading } = useGetJugadores();
@@ -22,11 +23,16 @@ export default function GetJugadoresForm(props: Props) {
     props.beforeRequest();
     setError("");
     const resultado = await getJugadores({ codigoAlfanumerico: codigoEquipo });
-    if (resultado.huboError == false) {
+    if (resultado.huboError === false) {
       props.onSuccess(resultado.contenido as IJugador[]);
+      setHayJugadores(true);
     } else {
       setError(resultado.mensajeDeError);
     }
+  };
+
+  const generarPDF = () => {
+    console.log("generando PDF");
   };
 
   return (
@@ -41,9 +47,12 @@ export default function GetJugadoresForm(props: Props) {
       {isLoading ? (
         <Spinner />
       ) : (
-        <Button title="Ver jugadores" onPress={obtenerJugadores} />
+        <View style={styles.botonesContainer}>
+          <Button title="Ver jugadores" onPress={obtenerJugadores} />
+          {hayJugadores && <Button title="Generar PDF" onPress={generarPDF} />}
+        </View>
       )}
-      {error != "" && <Text style={CommonStyles.error}>{error}</Text>}
+      {error !== "" && <Text style={CommonStyles.error}>{error}</Text>}
     </View>
   );
 }
@@ -52,6 +61,13 @@ const styles = StyleSheet.create({
   container: {
     paddingTop: 50,
     flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  botonesContainer: {
+    flex: 1,
+    flexDirection: "row",
+    gap: 6,
     alignItems: "center",
     justifyContent: "center",
   },
