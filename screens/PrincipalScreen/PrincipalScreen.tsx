@@ -10,8 +10,8 @@ const FirstRoute = () => <JugadoresScreen />;
 const SecondRoute = () => <MisJugadoresScreen />;
 
 const renderScene = SceneMap({
-  rivales: FirstRoute,
-  misjugadores: SecondRoute,
+  buscar: FirstRoute,
+  pendientes: SecondRoute,
 });
 
 export default function PrincipalsScreen() {
@@ -19,8 +19,8 @@ export default function PrincipalsScreen() {
 
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
-    { key: "rivales", title: "Rivales" },
-    { key: "misjugadores", title: "Mis jugadores" },
+    { key: "buscar", title: "Buscar" },
+    { key: "pendientes", title: "Pendientes" },
   ]);
 
   return (
