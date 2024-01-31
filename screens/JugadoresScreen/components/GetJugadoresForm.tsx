@@ -1,14 +1,14 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { StyleSheet, TextInput, View } from "react-native";
 import Button from "../../../components/Button";
 import Spinner from "../../../components/Spinner";
 import { Text } from "../../../components/Themed";
 import CommonStyles from "../../../constants/CommonStyles";
+import { useAppContext } from "../../../store";
 import { IJugador } from "../../../types/IJugador";
 import useGetJugadores from "./../hooks/useGetJugadores";
 
 interface Props {
-  onSuccess: (jugadores: any) => void;
   beforeRequest: () => void;
 }
 
@@ -16,6 +16,7 @@ export default function GetJugadoresForm(props: Props) {
   const [codigoEquipo, setCodigoEquipo] = useState("");
   const [hayJugadores, setHayJugadores] = useState(false);
   const [error, setError] = useState("");
+  const { setJugadores } = useAppContext();
 
   const { getJugadores, isLoading } = useGetJugadores();
 
@@ -24,7 +25,7 @@ export default function GetJugadoresForm(props: Props) {
     setError("");
     const resultado = await getJugadores({ codigoAlfanumerico: codigoEquipo });
     if (resultado.huboError === false) {
-      props.onSuccess(resultado.contenido as IJugador[]);
+      setJugadores(resultado.contenido as IJugador[]);
       setHayJugadores(true);
     } else {
       setError(resultado.mensajeDeError);

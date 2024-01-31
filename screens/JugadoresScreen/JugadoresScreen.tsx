@@ -1,9 +1,8 @@
-import { useState } from "react";
 import { Dimensions, ScrollView, StyleSheet } from "react-native";
 import ContainerWithBackground from "../../components/ContainerWithBackground";
 import { Text, View } from "../../components/Themed";
 import Colors from "../../constants/Colors";
-// import { RootTabScreenProps } from "../../types";
+import { useAppContext } from "../../store";
 import { EstadoJugadorEnum, IJugador } from "./../../types/IJugador";
 import GetJugadoresForm from "./components/GetJugadoresForm";
 import JugadorActivoCard from "./components/JugadorActivoCard";
@@ -11,18 +10,16 @@ import JugadorInhabilitadoCard from "./components/JugadorInhablitadoCard";
 import JugadorSuspendidoCard from "./components/JugadorSuspendidoCard";
 
 export default function JugadoresScreen() {
-  const [jugadores, setJugadores] = useState<IJugador[]>([]);
+  const { jugadores, setJugadores } = useAppContext();
+
   let categoriaAnterior: string = "";
 
   return (
     <ContainerWithBackground>
       <ScrollView>
-        <GetJugadoresForm
-          onSuccess={(res) => setJugadores(res)}
-          beforeRequest={() => setJugadores([])}
-        />
+        <GetJugadoresForm beforeRequest={() => setJugadores([])} />
         <View style={styles.cardsContainer}>
-          {jugadores.map((jugador, index) => {
+          {jugadores?.map((jugador, index) => {
             return (
               <View key={index} style={styles.container}>
                 {cambioLaCategoria(jugador) ? (
@@ -56,15 +53,15 @@ export default function JugadoresScreen() {
   );
 
   function cambioLaCategoria(jugador: IJugador) {
-    let cambioLaCategoria;
+    let cambioLaCategoriaFlag;
 
     if (categoriaAnterior !== jugador.Categoria) {
-      cambioLaCategoria = true;
+      cambioLaCategoriaFlag = true;
       categoriaAnterior = jugador.Categoria;
     } else {
-      cambioLaCategoria = false;
+      cambioLaCategoriaFlag = false;
     }
-    return cambioLaCategoria;
+    return cambioLaCategoriaFlag;
   }
 }
 
