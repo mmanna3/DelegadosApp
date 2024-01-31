@@ -1,5 +1,5 @@
-import React, { ReactNode } from "react";
-import { ImageBackground, StyleSheet, View } from "react-native";
+import { ReactNode } from "react";
+import { StyleSheet, View } from "react-native";
 
 interface IProps {
   children: ReactNode;

@@ -1,17 +1,13 @@
 import * as React from "react";
-import { Text, View, useWindowDimensions } from "react-native";
-import { SceneMap, TabView } from "react-native-tab-view";
-import { useUsuarioLogueado } from "../../store";
+import { useWindowDimensions } from "react-native";
+import { SceneMap, TabBar, TabView } from "react-native-tab-view";
+import Colors from "../../constants/Colors";
 import JugadoresScreen from "../JugadoresScreen/JugadoresScreen";
+import MisJugadoresScreen from "../MisJugadoresScreen/MisJugadoresScreen";
 
 const FirstRoute = () => <JugadoresScreen />;
 
-const SecondRoute = () => (
-  <>
-    <Text>Jugadores del club: </Text>
-    <View style={{ flex: 1, backgroundColor: "#ff4081" }} />
-  </>
-);
+const SecondRoute = () => <MisJugadoresScreen />;
 
 const renderScene = SceneMap({
   rivales: FirstRoute,
@@ -20,9 +16,6 @@ const renderScene = SceneMap({
 
 export default function PrincipalsScreen() {
   const layout = useWindowDimensions();
-  const { usuarioLogueado } = useUsuarioLogueado();
-
-  console.log(usuarioLogueado);
 
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
@@ -36,6 +29,16 @@ export default function PrincipalsScreen() {
       renderScene={renderScene}
       onIndexChange={setIndex}
       initialLayout={{ width: layout.width }}
+      renderTabBar={(props) => (
+        <TabBar
+          {...props}
+          // eslint-disable-next-line react-native/no-inline-styles
+          style={{
+            backgroundColor: Colors.verde,
+            paddingTop: 30,
+          }}
+        />
+      )} // <-- add this line
     />
   );
 }
