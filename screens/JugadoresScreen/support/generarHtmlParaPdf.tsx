@@ -1,5 +1,15 @@
 import { EstadoJugadorEnum, IJugador } from "../../../types/IJugador";
 
+export const esteMismisimoMomento = () => {
+  const d = new Date();
+  const dformat =
+    [d.getDate(), d.getMonth() + 1, d.getFullYear()].join("_") +
+    "-" +
+    [d.getHours(), d.getMinutes(), d.getSeconds()].join("_");
+
+  return dformat;
+};
+
 const stylesTag = `
 <style>
 
@@ -60,8 +70,8 @@ const stylesTag = `
 	.logo {
 		width: 70px;
 		position: absolute;
-		left: 354px;
-		bottom: 25px;
+		left: 375px;
+		bottom: 5px;
 	}
 
 	.logo-contenedor {
@@ -70,10 +80,17 @@ const stylesTag = `
 		height: 200px;
 	}
 
+  .fechaImpresion {
+    position: absolute;
+    font-size: 0.8rem;
+		left: 30px;
+		bottom: 5px;
+  }
+
 	.tarjetas {
 		position: absolute;
 		right: 30px;
-		bottom: 95px;
+		bottom: 110px;
 	}
 
 	.tarjetaAmarilla {
@@ -136,7 +153,43 @@ const generarTagsDeJugadores = (jugadores: IJugador[]) => {
     }
 
     datos = datos + "</div>";
-    carnet = carnet + datos + "</div>";
+
+    const logo = `
+    		<div class="logo-contenedor">
+			<img class="logo" src="https://edefi.com.ar/Content/logo.svg" alt="EDEFI" />
+		</div>`;
+
+    let tarjetas = `
+    <div class="tarjetas">
+    `;
+
+    if (jug.TarjetasAmarillas !== 0)
+      tarjetas =
+        tarjetas +
+        `
+    		<span class="cantidadDeAmarillas">
+					${jug.TarjetasAmarillas}
+				</span>
+				<span class="tarjetaAmarilla"></span>`;
+
+    if (jug.TarjetasRojas !== 0)
+      tarjetas =
+        tarjetas +
+        `
+        <div>
+					<span class="cantidadDeAmarillas">
+						${jug.TarjetasRojas}
+					</span>
+					<span class="tarjetaRoja"></span>
+				</div>`;
+
+    tarjetas = tarjetas + "</div>";
+
+    const fechaImpresion = `<div class="fechaImpresion">
+      FECHA: ${esteMismisimoMomento()}
+    </div>`;
+
+    carnet = carnet + datos + logo + fechaImpresion + tarjetas + "</div>";
 
     carnets = carnets + carnet;
   });
