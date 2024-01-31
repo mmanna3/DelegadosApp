@@ -4,7 +4,7 @@ import Spinner from "../../components/Spinner";
 import { Text, View } from "../../components/Themed";
 import Colors from "../../constants/Colors";
 import CommonStyles from "../../constants/CommonStyles";
-import { useUsuarioLogueado } from "../../store";
+import { useAppContext } from "../../store";
 import {
   EstadoJugadorAutofichadoEnum,
   IJugadorAutofichado,
@@ -14,7 +14,7 @@ import useJugadoresAutofichados from "./hooks/useJugadoresAutofichados";
 export default function MisJugadoresScreen() {
   const [error, setError] = useState("");
   const [jugadores, setJugadores] = useState<IJugadorAutofichado[]>([]);
-  const { usuarioLogueado } = useUsuarioLogueado();
+  const { usuarioLogueado } = useAppContext();
   const { getJugadoresAutofichados, isLoading } = useJugadoresAutofichados();
 
   useEffect(() => {

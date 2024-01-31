@@ -1,5 +1,6 @@
 import "react";
 import { ReactNode, createContext, useContext, useState } from "react";
+import { IJugador } from "./types/IJugador";
 
 type UsuarioLogueado = {
   usuario: string;
@@ -7,36 +8,42 @@ type UsuarioLogueado = {
   clubId: number;
 };
 
-interface UsuarioContextValue {
+interface ContextValue {
   usuarioLogueado: UsuarioLogueado | null;
   setUsuarioLogueado: React.Dispatch<
     React.SetStateAction<UsuarioLogueado | null>
   >;
+  jugadores: IJugador[] | null;
+  setJugadores: React.Dispatch<React.SetStateAction<IJugador[] | null>>;
 }
 
 type Props = { children: ReactNode };
 
-export const UsuarioContext = createContext<UsuarioContextValue | null>(null);
+export const AppContext = createContext<ContextValue | null>(null);
 
-export const UsuarioContextProvider = ({ children }: Props) => {
+export const AppContextProvider = ({ children }: Props) => {
   const [usuarioLogueado, setUsuarioLogueado] =
     useState<UsuarioLogueado | null>(null);
 
+  const [jugadores, setJugadores] = useState<IJugador[] | null>(null);
+
   return (
-    <UsuarioContext.Provider value={{ usuarioLogueado, setUsuarioLogueado }}>
+    <AppContext.Provider
+      value={{ usuarioLogueado, setUsuarioLogueado, jugadores, setJugadores }}
+    >
       {children}
-    </UsuarioContext.Provider>
+    </AppContext.Provider>
   );
 };
 
-export const useUsuarioLogueado = () => {
-  const currentUserContext = useContext(UsuarioContext);
+export const useAppContext = () => {
+  const currentAppContext = useContext(AppContext);
 
-  if (!currentUserContext) {
+  if (!currentAppContext) {
     throw new Error(
       "useUsuarioContext has to be used within <CurrentUserContext.Provider>"
     );
   }
 
-  return currentUserContext;
+  return currentAppContext;
 };

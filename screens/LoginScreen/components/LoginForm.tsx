@@ -4,7 +4,7 @@ import Button from "../../../components/Button";
 import Spinner from "../../../components/Spinner";
 import { Text } from "../../../components/Themed";
 import CommonStyles from "../../../constants/CommonStyles";
-import { useUsuarioLogueado } from "../../../store";
+import { useAppContext } from "../../../store";
 import useLogin from "./../hooks/useLogin";
 
 interface Props {
@@ -12,7 +12,7 @@ interface Props {
 }
 
 export default function LoginForm(props: Props) {
-  const { setUsuarioLogueado } = useUsuarioLogueado();
+  const { setUsuarioLogueado } = useAppContext();
 
   const [usuario, setUsuario] = useState("");
   const [password, setPassword] = useState("");
