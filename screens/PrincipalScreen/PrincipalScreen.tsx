@@ -35,7 +35,7 @@ export default function PrincipalsScreen() {
           // eslint-disable-next-line react-native/no-inline-styles
           style={{
             backgroundColor: Colors.verde,
-            paddingTop: 30,
+            paddingTop: 40,
           }}
         />
       )} // <-- add this line

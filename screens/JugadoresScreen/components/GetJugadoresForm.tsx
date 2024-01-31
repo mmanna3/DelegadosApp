@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { TextInput, View, StyleSheet } from "react-native";
+import { StyleSheet, TextInput, View } from "react-native";
 import Button from "../../../components/Button";
 import Spinner from "../../../components/Spinner";
 import { Text } from "../../../components/Themed";
@@ -50,7 +50,7 @@ export default function GetJugadoresForm(props: Props) {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 70,
+    paddingTop: 50,
     flex: 1,
     alignItems: "center",
     justifyContent: "center",

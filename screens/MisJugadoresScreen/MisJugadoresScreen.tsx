@@ -102,8 +102,8 @@ const styles = StyleSheet.create({
   },
   datoEstado: {
     textTransform: "uppercase",
-    fontSize: 16,
-    borderWidth: 1,
+    fontSize: 15,
+    borderWidth: 0.5,
     padding: 5,
     fontWeight: "bold",
     marginHorizontal: 3,
@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   datoNombre: {
-    fontSize: 18,
+    fontSize: 17,
     fontWeight: "bold",
     marginHorizontal: 3,
     lineHeight: 21,
@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   datoMenosImportante: {
-    fontSize: 16,
+    fontSize: 15,
     // fontWeight: "bold",
     marginHorizontal: 3,
     lineHeight: 21,
@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
   },
   motivoRechazo: {
     marginTop: 10,
-    fontSize: 16,
+    fontSize: 15,
     marginHorizontal: 3,
     lineHeight: 21,
     letterSpacing: 0.4,
@@ -195,8 +195,9 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
   titulo: {
-    fontSize: 20,
-    marginVertical: 30,
+    fontSize: 17,
+    marginTop: 60,
+    marginBottom: 20,
     marginHorizontal: 30,
     textAlign: "center",
     color: "black",
