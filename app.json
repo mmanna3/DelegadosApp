@@ -24,6 +24,8 @@
     },
     "android": {
       "package": "com.ykn.edefidelegados",
+      //Si no, cuando el teclado es visible, tira otras cosas para arriba
+      "softwareKeyboardLayoutMode": "pan", 
       "versionCode": 9,
       "userInterfaceStyle": "light"
     },

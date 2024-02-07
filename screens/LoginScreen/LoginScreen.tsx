@@ -1,4 +1,4 @@
-import React from "react";
+import { Link } from "@react-navigation/native";
 import { Image, StyleSheet } from "react-native";
 import ContainerWithBackground from "../../components/ContainerWithBackground";
 import { Text, View } from "../../components/Themed";
@@ -24,6 +24,9 @@ export default function LoginScreen({
         </Text>
       </View>
       <LoginForm onSuccess={() => navigation.navigate("Principal")} />
+      <Link style={styles.link} to={{ screen: "CambiarPassword" }}>
+        Cambiar contraseña
+      </Link>
     </ContainerWithBackground>
   );
 }
@@ -35,6 +38,16 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     backgroundColor: "white",
   },
+  link: {
+    fontSize: 14,
+    textDecorationLine: "underline",
+    color: "#444",
+    marginBottom: 25,
+    marginRight: 30,
+    alignSelf: "flex-end",
+    zIndex: -3,
+  },
+  textoDelLink: {},
   logo: {
     width: 140,
     height: 140,

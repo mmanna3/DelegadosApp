@@ -16,6 +16,7 @@ import { ColorSchemeName, Pressable } from "react-native";
 
 import Colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
+import CambiarPasswordScreen from "../screens/CambiarPasswordScreen/CambiarPasswordScreen";
 import JugadoresScreen from "../screens/JugadoresScreen/JugadoresScreen";
 import LoginScreen from "../screens/LoginScreen/LoginScreen";
 import ModalScreen from "../screens/ModalScreen";
@@ -57,6 +58,11 @@ function RootNavigator() {
       <Stack.Screen
         name="Root"
         component={LoginScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="CambiarPassword"
+        component={CambiarPasswordScreen}
         options={{ headerShown: false }}
       />
       <Stack.Screen
