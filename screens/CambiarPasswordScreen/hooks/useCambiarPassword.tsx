@@ -14,8 +14,6 @@ const useCambiarPassword = () => {
     formData.append("Usuario", props.Usuario);
     formData.append("NuevoPassword", props.Password);
 
-    console.log(formData);
-
     try {
       const response = await fetch(
         "https://www.edefi.com.ar/account/CambiarPasswordAppDelegados",

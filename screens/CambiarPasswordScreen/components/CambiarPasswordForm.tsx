@@ -36,7 +36,6 @@ export default function LoginForm(props: Props) {
     });
 
     let resultadoJSON = JSON.parse(resultado);
-    console.log(resultadoJSON?.huboError);
 
     if (!resultadoJSON?.huboError) {
       props.onSuccess(resultadoJSON.contenido);
