@@ -32,6 +32,6 @@ export enum EstadoJugadorAutofichadoEnum {
 
 export enum EstadoJugadorEnum {
   Activo = 1,
-  Inhabilitado = 2,
-  Suspendido = 3,
+  Suspendido = 2,
+  Inhabilitado = 3,
 }

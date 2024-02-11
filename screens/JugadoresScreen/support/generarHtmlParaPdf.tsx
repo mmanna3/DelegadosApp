@@ -67,6 +67,17 @@ const stylesTag = `
 		color: white !important;
 	}
 
+		
+	.inhabilitado {
+		background-color: #111 !important;
+		-webkit-print-color-adjust: exact;
+		padding: 5px;
+		padding-left: 10px;
+		padding-right: 10px;
+		border-radius: 5px;
+		color: white !important;
+	}
+
 	.logo {
 		width: 70px;
 		position: absolute;
@@ -133,7 +144,11 @@ const generarTagsDeJugadores = (jugadores: IJugador[]) => {
       datos =
         datos +
         `
-          <div class="suspendido">JUGADOR ${EstadoJugadorEnum[jug.Estado]}</div>
+          <div class="${EstadoJugadorEnum[
+            jug.Estado
+          ].toLowerCase()}">JUGADOR ${EstadoJugadorEnum[
+          jug.Estado
+        ].toUpperCase()}</div>
           <div class="nombre">${jug.Nombre} ${jug.Apellido}</div>
           <div>DNI: ${jug.DNI}</div>
           <div>${jug.FechaNacimiento}</div>

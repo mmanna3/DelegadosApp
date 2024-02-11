@@ -33,12 +33,12 @@ export default function JugadoresScreen() {
                   {jugador.Estado === EstadoJugadorEnum.Activo ? (
                     <JugadorActivoCard key={jugador.DNI} jugador={jugador} />
                   ) : jugador.Estado === EstadoJugadorEnum.Suspendido ? (
-                    <JugadorInhabilitadoCard
+                    <JugadorSuspendidoCard
                       key={jugador.DNI}
                       jugador={jugador}
                     />
                   ) : jugador.Estado === EstadoJugadorEnum.Inhabilitado ? (
-                    <JugadorSuspendidoCard
+                    <JugadorInhabilitadoCard
                       key={jugador.DNI}
                       jugador={jugador}
                     />
