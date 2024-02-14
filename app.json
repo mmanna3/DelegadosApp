@@ -2,7 +2,7 @@
   "expo": {
     "name": "EDeFI-Delegados",
     "slug": "EDeFI-Delegados",
-    "version": "2.1.0",
+    "version": "2.1.1",
     "orientation": "portrait",
     "icon": "./assets/images/logo.png",
     "scheme": "myapp",
@@ -26,7 +26,7 @@
       "package": "com.ykn.edefidelegados",
       //Si no, cuando el teclado es visible, tira otras cosas para arriba
       "softwareKeyboardLayoutMode": "pan", 
-      "versionCode": 10,
+      "versionCode": 11,
       "userInterfaceStyle": "light"
     },
     "web": {
