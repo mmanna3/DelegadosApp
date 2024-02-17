@@ -47,7 +47,7 @@ export default function MisJugadoresScreen() {
   return (
     <View style={styles.container}>
       <Text style={styles.titulo}>
-        Jugadores de{" "}
+        Club:{" "}
         <Text style={{ fontWeight: "bold" }}>{usuarioLogueado?.club}</Text>
       </Text>
 
@@ -61,6 +61,12 @@ export default function MisJugadoresScreen() {
               style={elegirEstiloDeCardSegunEstado(jugador.Estado)}
             >
               <View style={styles.renglon}>
+                <Text style={styles.datoEquipo}>{jugador.Equipo}</Text>
+              </View>
+              <View style={styles.renglon}>
+                <Text style={styles.datoTorneo}>{jugador.Torneo}</Text>
+              </View>
+              <View style={styles.renglon}>
                 <Text style={styles.datoNombre}>{jugador.Nombre}</Text>
                 <Text style={styles.datoNombre}>{jugador.Apellido}</Text>
               </View>
@@ -69,11 +75,6 @@ export default function MisJugadoresScreen() {
                   DNI {jugador.DNI}
                 </Text>
               </View>
-              {/* <View style={styles.renglon}>
-                <Text style={styles.datoMenosImportante}>
-                  {jugador.FechaNacimiento}
-                </Text>
-              </View> */}
               <View style={styles.renglon}>
                 <Text style={styles.datoEstado}>
                   {jugador.EstadoDescripcion}
@@ -111,7 +112,28 @@ const styles = StyleSheet.create({
     letterSpacing: 0.4,
     color: Colors.negro,
     textAlign: "center",
-    marginTop: 10,
+    marginTop: 28,
+  },
+  datoEquipo: {
+    fontSize: 18,
+    textTransform: "uppercase",
+    fontWeight: "bold",
+    marginHorizontal: 3,
+    lineHeight: 21,
+    letterSpacing: 0.4,
+    color: Colors.negro,
+    textAlign: "center",
+  },
+  datoTorneo: {
+    fontSize: 14,
+    textTransform: "uppercase",
+    fontWeight: "bold",
+    marginHorizontal: 3,
+    lineHeight: 21,
+    letterSpacing: 0.4,
+    color: Colors.negro,
+    textAlign: "center",
+    paddingBottom: 24,
   },
   datoNombre: {
     fontSize: 17,
@@ -195,7 +217,7 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
   titulo: {
-    fontSize: 17,
+    fontSize: 20,
     marginTop: 60,
     marginBottom: 20,
     marginHorizontal: 30,

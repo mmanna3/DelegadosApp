@@ -3,6 +3,7 @@ export interface IJugadorAutofichado {
   Apellido: string;
   DNI: string;
   Equipo: string;
+  Torneo: string;
   FechaNacimiento: string;
   Estado: EstadoJugadorAutofichadoEnum;
   EstadoDescripcion: string;
