@@ -7,7 +7,7 @@ import CommonStyles from "../../../constants/CommonStyles";
 import { useAppContext } from "../../../store";
 import { IJugador } from "../../../types/IJugador";
 import useGenerarPDF from "../hooks/useGenerarPDF";
-import useGetJugadores from "./../hooks/useGetJugadores";
+import useGetJugadores from "../hooks/useGetJugadores";
 
 interface Props {
   beforeRequest: () => void;

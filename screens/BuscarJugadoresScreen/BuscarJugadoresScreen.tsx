@@ -3,7 +3,7 @@ import ContainerWithBackground from "../../components/ContainerWithBackground";
 import { Text, View } from "../../components/Themed";
 import Colors from "../../constants/Colors";
 import { useAppContext } from "../../store";
-import { EstadoJugadorEnum, IJugador } from "./../../types/IJugador";
+import { EstadoJugadorEnum, IJugador } from "../../types/IJugador";
 import GetJugadoresForm from "./components/GetJugadoresForm";
 import JugadorActivoCard from "./components/JugadorActivoCard";
 import JugadorInhabilitadoCard from "./components/JugadorInhablitadoCard";

@@ -2,8 +2,8 @@ import * as React from "react";
 import { useWindowDimensions } from "react-native";
 import { SceneMap, TabBar, TabView } from "react-native-tab-view";
 import Colors from "../../constants/Colors";
-import JugadoresScreen from "../JugadoresScreen/JugadoresScreen";
-import MisJugadoresScreen from "../MisJugadoresScreen/MisJugadoresScreen";
+import JugadoresScreen from "../BuscarJugadoresScreen/BuscarJugadoresScreen";
+import MisJugadoresScreen from "../PendientesScreen/PendientesScreen";
 
 const FirstRoute = () => <JugadoresScreen />;
 

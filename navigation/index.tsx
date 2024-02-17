@@ -6,9 +6,9 @@
 import { FontAwesome } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import {
-  DarkTheme,
-  DefaultTheme,
-  NavigationContainer,
+    DarkTheme,
+    DefaultTheme,
+    NavigationContainer,
 } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import * as React from "react";
@@ -16,8 +16,8 @@ import { ColorSchemeName, Pressable } from "react-native";
 
 import Colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
+import JugadoresScreen from "../screens/BuscarJugadoresScreen/BuscarJugadoresScreen";
 import CambiarPasswordScreen from "../screens/CambiarPasswordScreen/CambiarPasswordScreen";
-import JugadoresScreen from "../screens/JugadoresScreen/JugadoresScreen";
 import LoginScreen from "../screens/LoginScreen/LoginScreen";
 import ModalScreen from "../screens/ModalScreen";
 import NotFoundScreen from "../screens/NotFoundScreen";
@@ -25,9 +25,9 @@ import PrincipalsScreen from "../screens/PrincipalScreen/PrincipalScreen";
 import TabOneScreen from "../screens/TabOneScreen";
 import TabTwoScreen from "../screens/TabTwoScreen";
 import {
-  RootStackParamList,
-  RootTabParamList,
-  RootTabScreenProps,
+    RootStackParamList,
+    RootTabParamList,
+    RootTabScreenProps,
 } from "../types";
 import LinkingConfiguration from "./LinkingConfiguration";
 
