@@ -20,12 +20,12 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "userInterfaceStyle": "light"
+      "userInterfaceStyle": "light",
+      "bundleIdentifier": "com.ykn.edefidelegados"
     },
     "android": {
       "package": "com.ykn.edefidelegados",
-      //Si no, cuando el teclado es visible, tira otras cosas para arriba
-      "softwareKeyboardLayoutMode": "pan", 
+      "softwareKeyboardLayoutMode": "pan",
       "versionCode": 12,
       "userInterfaceStyle": "light"
     },
@@ -38,7 +38,8 @@
       }
     },
     "plugins": [
-      "expo-font",[
+      "expo-font",
+      [
         "expo-build-properties",
         {
           "android": {
