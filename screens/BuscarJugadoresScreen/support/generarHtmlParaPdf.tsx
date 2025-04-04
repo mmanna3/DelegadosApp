@@ -12,120 +12,188 @@ export const esteMismisimoMomento = () => {
 
 const stylesTag = `
 <style>
+	@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+	* {
+		font-family: 'Roboto', sans-serif;
+	}
+
+	@page {
+		size: A4;
+		margin: 0;
+	}
 
 	.contenedor-general {
-		display: grid;
-		grid-template-columns: auto auto;
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+		padding: 10px;
+		background-color: #f5f5f5;
+	}
+
+	.pagina {
+		width: 210mm;
+		min-height: 297mm;
+		padding: 10mm;
+		margin: 0 auto;
+		background: white;
+		box-sizing: border-box;
+		page-break-after: always;
+		display: flex;
+		justify-content: space-between;
+	}
+
+	.columna {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+		width: 48%;
 	}
 
 	.carnet-contenedor {
-		width: 450px;
-		height: 200px;
-		border: 2px solid black;
-		border-radius: 20px;
-		padding: 15px;
-		margin-bottom: 10px;
-		margin-right: 10px;
+		width: 100%;
+		height: 160px;
+		background: linear-gradient(145deg, #ffffff, #f0f0f0);
+		border-radius: 12px;
+		padding: 12px;
+		margin: 0 auto;
 		display: flex;
-		position: relative
+		position: relative;
+		box-shadow: 0 6px 12px rgba(0,0,0,0.08);
+		transition: transform 0.2s ease;
+		border: 1px solid rgba(0,0,0,0.1);
+		page-break-inside: avoid;
 	}
 
 	.imagen {
-		width: 130px;
-		height: 130px;
+		width: 100px;
+		height: 100px;
+		border-radius: 8px;
+		object-fit: cover;
+		box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+		border: 2px solid #fff;
 	}
 
 	.datos {
-		margin-left: 20px;
-		font-size: 16px;
-		font-weight: bold;
+		margin-left: 15px;
+		font-size: 13px;
+		line-height: 1.4;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
 	}
 
 	.verde {
-		color: #01aa59 !important;
+		color: #2ecc71 !important;
+		font-weight: 700;
 	}
 
 	.rojo {
-		color: #e81f05 !important;
+		color: #e74c3c !important;
+		font-weight: 500;
 	}
 
 	.azul {
-		color: #0038ba !important;
+		color: #3498db !important;
+		font-weight: 500;
 	}
 
 	.datos div {
-		margin-bottom: 5px;
+		margin-bottom: 4px;
+		text-shadow: 0 1px 1px rgba(0,0,0,0.1);
 	}
 
 	.suspendido {
-		background-color: #e81f05 !important;
+		background: linear-gradient(145deg, #e74c3c, #c0392b) !important;
 		-webkit-print-color-adjust: exact;
-		padding: 5px;
-		padding-left: 10px;
-		padding-right: 10px;
-		border-radius: 5px;
+		padding: 4px 8px;
+		border-radius: 6px;
 		color: white !important;
+		font-weight: 700;
+		box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+		font-size: 12px;
 	}
 
-		
 	.inhabilitado {
-		background-color: #111 !important;
+		background: linear-gradient(145deg, #2c3e50, #34495e) !important;
 		-webkit-print-color-adjust: exact;
-		padding: 5px;
-		padding-left: 10px;
-		padding-right: 10px;
-		border-radius: 5px;
+		padding: 4px 8px;
+		border-radius: 6px;
 		color: white !important;
+		font-weight: 700;
+		box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+		font-size: 12px;
 	}
 
 	.logo {
-		width: 70px;
+		width: 50px;
 		position: absolute;
-		left: 375px;
-		bottom: 5px;
+		left: 290px;
+		bottom: 8px;
+		opacity: 0.9;
 	}
 
 	.logo-contenedor {
 		position: absolute;
-		width: 450px;
-		height: 200px;
+		width: 350px;
+		height: 160px;
 	}
 
-  .fechaImpresion {
-    position: absolute;
-    font-size: 0.8rem;
-		left: 30px;
-		bottom: 5px;
-  }
+	.fechaImpresion {
+		position: absolute;
+		font-size: 0.7rem;
+		left: 25px;
+		bottom: 8px;
+		color: #7f8c8d;
+		font-weight: 500;
+	}
 
 	.tarjetas {
 		position: absolute;
-		right: 30px;
-		bottom: 110px;
+		right: 25px;
+		bottom: 85px;
+		display: flex;
+		gap: 6px;
+		align-items: center;
 	}
 
 	.tarjetaAmarilla {
 		width: 10px;
 		height: 15px;
-		background-color: yellow;
+		background: linear-gradient(145deg, #f1c40f, #f39c12);
 		display: inline-block;
-		border: 1px solid black;
+		border: 1px solid rgba(0,0,0,0.2);
 		margin-left: 2px;
+		border-radius: 2px;
+		box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 	}
 
 	.tarjetaRoja {
 		width: 10px;
 		height: 15px;
-		background-color: red;
+		background: linear-gradient(145deg, #e74c3c, #c0392b);
 		display: inline-block;
-		border: 1px solid black;
+		border: 1px solid rgba(0,0,0,0.2);
 		margin-left: 2px;
+		border-radius: 2px;
+		box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+	}
+
+	.cantidadDeAmarillas {
+		font-size: 0.75rem;
+		font-weight: 700;
+		color: #2c3e50;
+		margin-right: 3px;
 	}
 </style>
 `;
 
 const generarTagsDeJugadores = (jugadores: IJugador[]) => {
   let carnets = "";
+  let contador = 0;
+  let paginaActual = "";
+  let columnaIzquierda = "";
+  let columnaDerecha = "";
 
   jugadores.forEach((jug) => {
     let carnet = `
@@ -206,7 +274,24 @@ const generarTagsDeJugadores = (jugadores: IJugador[]) => {
 
     carnet = carnet + datos + logo + fechaImpresion + tarjetas + "</div>";
 
-    carnets = carnets + carnet;
+    if (contador < 5) {
+      columnaIzquierda += carnet;
+    } else {
+      columnaDerecha += carnet;
+    }
+    contador++;
+
+    if (contador === 10 || jug === jugadores[jugadores.length - 1]) {
+      paginaActual = `
+        <div class="columna">${columnaIzquierda}</div>
+        <div class="columna">${columnaDerecha}</div>
+      `;
+      carnets += `<div class="pagina">${paginaActual}</div>`;
+      paginaActual = "";
+      columnaIzquierda = "";
+      columnaDerecha = "";
+      contador = 0;
+    }
   });
 
   return carnets;
@@ -220,10 +305,8 @@ export const generarHtml = (jugadores: IJugador[] | null) => {
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
   </head>
-  <body style="text-align: center;">
-    <div class="contenedor-general">
-      ${generarTagsDeJugadores(jugadores)}
-    </div>
+  <body style="margin: 0; padding: 0; background-color: #f5f5f5;">
+    ${generarTagsDeJugadores(jugadores)}
   </body>
 </html>
 `;
