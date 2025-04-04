@@ -160,23 +160,37 @@ const stylesTag = `
 	.tarjetaAmarilla {
 		width: 10px;
 		height: 15px;
-		background: linear-gradient(145deg, #f1c40f, #f39c12);
+		background-color: #f1c40f !important;
+		background-image: none !important;
 		display: inline-block;
 		border: 1px solid rgba(0,0,0,0.2);
 		margin-left: 2px;
 		border-radius: 2px;
-		box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+		box-shadow: none !important;
+		-webkit-print-color-adjust: exact !important;
+		print-color-adjust: exact !important;
+		color-adjust: exact !important;
+		-webkit-filter: none !important;
+		filter: none !important;
+		opacity: 1 !important;
 	}
 
 	.tarjetaRoja {
 		width: 10px;
 		height: 15px;
-		background: linear-gradient(145deg, #e74c3c, #c0392b);
+		background-color: #e74c3c !important;
+		background-image: none !important;
 		display: inline-block;
 		border: 1px solid rgba(0,0,0,0.2);
 		margin-left: 2px;
 		border-radius: 2px;
-		box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+		box-shadow: none !important;
+		-webkit-print-color-adjust: exact !important;
+		print-color-adjust: exact !important;
+		color-adjust: exact !important;
+		-webkit-filter: none !important;
+		filter: none !important;
+		opacity: 1 !important;
 	}
 
 	.cantidadDeAmarillas {
