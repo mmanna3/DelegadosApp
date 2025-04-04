@@ -7,20 +7,20 @@ interface Props {
   jugador: IJugador;
 }
 
+export const primeraMayuscRestoMinusc = (texto: string) => {
+  const palabras = texto.split(" ");
+  let resultado = "";
+
+  palabras.forEach((palabra) => {
+    resultado += `${
+      palabra.charAt(0).toUpperCase() + palabra.slice(1).toLowerCase() + " "
+    }`;
+  });
+
+  return resultado;
+};
+
 export default function JugadorActivoCard(props: Props) {
-  const primeraMayuscRestoMinusc = (texto: string) => {
-    const palabras = texto.split(" ");
-    let resultado = "";
-
-    palabras.forEach((palabra) => {
-      resultado += `${
-        palabra.charAt(0).toUpperCase() + palabra.slice(1).toLowerCase() + " "
-      }`;
-    });
-
-    return resultado;
-  };
-
   const { jugador } = props;
   return (
     <View style={styles.card}>

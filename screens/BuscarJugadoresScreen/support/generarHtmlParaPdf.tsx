@@ -1,4 +1,5 @@
 import { EstadoJugadorEnum, IJugador } from "../../../types/IJugador";
+import { primeraMayuscRestoMinusc } from "../components/JugadorActivoCard";
 
 export const esteMismisimoMomento = () => {
   const d = new Date();
@@ -66,6 +67,8 @@ const stylesTag = `
 	}
 
 	.imagen {
+		margin-top: 5px;
+		margin-left: 10px;
 		width: 100px;
 		height: 100px;
 		border-radius: 8px;
@@ -75,7 +78,7 @@ const stylesTag = `
 	}
 
 	.datos {
-		margin-left: 15px;
+		margin-left: 30px;
 		font-size: 13px;
 		line-height: 1.4;
 		display: flex;
@@ -84,17 +87,17 @@ const stylesTag = `
 	}
 
 	.verde {
-		color: #2ecc71 !important;
+		color:rgb(5, 85, 39) !important;
 		font-weight: 700;
 	}
 
 	.rojo {
-		color: #e74c3c !important;
+		color:rgb(191, 39, 22) !important;
 		font-weight: 500;
 	}
 
 	.azul {
-		color: #3498db !important;
+		color:rgb(17, 27, 212) !important;
 		font-weight: 500;
 	}
 
@@ -232,20 +235,20 @@ const generarTagsDeJugadores = (jugadores: IJugador[]) => {
           jug.Estado
         ].toUpperCase()}</div>
           <div class="nombre">${jug.Nombre} ${jug.Apellido}</div>
-          <div>DNI: ${jug.DNI}</div>
+          <div>${jug.DNI}</div>
           <div>${jug.FechaNacimiento}</div>
-          <div>${jug.Equipo}</div>
-          <div>${jug.TipoLiga}</div>
+          <div>${primeraMayuscRestoMinusc(jug.Equipo)}</div>
+          <div>${primeraMayuscRestoMinusc(jug.TipoLiga)}</div>
         `;
     } else {
       datos =
         datos +
         `
           <div class="nombre verde">${jug.Nombre} ${jug.Apellido}</div>
-          <div class="azul">DNI: ${jug.DNI}</div>
+          <div class="azul">${jug.DNI}</div>
           <div class="azul">${jug.FechaNacimiento}</div>
-          <div class="rojo">${jug.Equipo}</div>
-          <div class="rojo">${jug.TipoLiga}</div>
+          <div class="rojo">${primeraMayuscRestoMinusc(jug.Equipo)}</div>
+          <div class="rojo">${primeraMayuscRestoMinusc(jug.TipoLiga)}</div>
         `;
     }
 
