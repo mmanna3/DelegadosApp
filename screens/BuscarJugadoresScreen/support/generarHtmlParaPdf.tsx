@@ -78,12 +78,13 @@ const stylesTag = `
 	}
 
 	.datos {
+		margin-top: 9px;	
 		margin-left: 30px;
 		font-size: 13px;
 		line-height: 1.4;
 		display: flex;
 		flex-direction: column;
-		justify-content: center;
+		justify-content: flex-start;
 	}
 
 	.verde {
