@@ -3,6 +3,7 @@ import * as Print from "expo-print";
 import { shareAsync } from "expo-sharing";
 import { useState } from "react";
 import { esteMismisimoMomento } from "../support/generarHtmlParaPdf";
+import { generarPlanillasHtml } from "../support/generarPlanillasHtmlParaPdf";
 import useGetPlanillas from "./useGetPlanillas";
 
 const useGenerarPlanillas = () => {
