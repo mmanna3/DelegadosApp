@@ -21,7 +21,10 @@
     "ios": {
       "supportsTablet": true,
       "userInterfaceStyle": "light",
-      "bundleIdentifier": "com.ykn.edefidelegados"
+      "bundleIdentifier": "com.ykn.edefidelegados",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "package": "com.ykn.edefidelegados",

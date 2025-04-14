@@ -6,6 +6,10 @@
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
+    "ios:build": "eas build --platform ios --profile production",
+    "ios:deploy": "eas submit --platform ios",
+    "android:build": "eas build --platform android --profile production",
+    "android:deploy": "eas submit --platform android",
     "web": "expo start --web",
     "eject": "expo eject",
     "test": "jest --watchAll"
