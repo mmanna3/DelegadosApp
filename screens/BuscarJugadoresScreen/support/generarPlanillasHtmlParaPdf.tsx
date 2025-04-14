@@ -72,6 +72,13 @@ const stylesTag = `
     padding: 5px;
   }
 
+  .input-largo {
+    border: none;
+    border-bottom: 1px solid #000;
+    width: 200px;
+    padding: 5px;
+  }
+
   .fecha-formato {
     display: flex;
     align-items: center;
@@ -131,7 +138,7 @@ const stylesTag = `
   }
 
   .firmas {
-    margin-top: 30px;
+    margin-top: 60px;
     display: flex;
     justify-content: space-between;
   }
@@ -356,22 +363,22 @@ const generarPlanillaHtml = async (
 
       <div class="encabezado">
         <div class="encabezado-grupo">
-          <label>DT: <input type="text" /></label>
+          <label>DT: <input class="input-largo" type="text" /></label>
         </div>
         <div class="encabezado-grupo">
-          <label>AUX: <input type="text" /></label>
+          <label>AUX: <input class="input-largo" type="text" /></label>
         </div>
       </div>
 
       <div class="observaciones">
         <div class="observaciones-item">
-          <label>Jug. Expulsado: <input type="text" /></label>
+          <label>Jug. Expulsado: </label>
         </div>
         <div class="observaciones-item">
-          <label>Público Expulsado: <input type="text" /></label>
+          <label>Público Expulsado: </label>
         </div>
         <div class="observaciones-item">
-          <label>Observaciones: <input type="text" /></label>
+          <label>Observaciones: </label>
         </div>
       </div>
 
