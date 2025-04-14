@@ -10,17 +10,21 @@ const stylesTag = `
 
   @page {
     size: A4;
-    margin: 0;
+    margin: 25mm 15mm 25mm 15mm;
   }
 
   .pagina {
     width: 210mm;
-    min-height: 297mm;
-    padding: 20mm;
+    
+    padding: 30mm 15mm;
     margin: 0 auto;
     background: white;
     box-sizing: border-box;
     page-break-after: always;
+  }
+
+  .pagina:last-child {
+    page-break-after: avoid;
   }
 
   .titulo {
@@ -49,20 +53,20 @@ const stylesTag = `
   .encabezado-grupo input {
     border: none;
     border-bottom: 1px solid #000;
-    width: 200px;
+    width: 80px;
     padding: 5px;
   }
 
-  .local-visitante {
+  .fecha-formato {
     display: flex;
-    gap: 10px;
-    margin: 10px 0;
+    align-items: center;
+    gap: 5px;
   }
 
-  .local-visitante-option {
-    border: 1px solid #000;
-    padding: 5px 10px;
-    cursor: pointer;
+  .fecha-formato span {
+    display: inline-block;
+    width: 20px;
+    text-align: center;
   }
 
   .faltas {
@@ -147,28 +151,17 @@ const generarPlanillaHtml = (planilla: any, torneo: string, equipo: string) => {
       <div class="encabezado">
         <div class="encabezado-grupo">
           <label>Torneo: ${torneo}</label>
-          <div class="encabezado-grupo">
-            <label>Día: <input type="text" /></label>
-          </div>
+          <label>Equipo: ${equipo}</label>
+          <label>GOLES: <input type="text" /></label>
+          <label>Min: <input type="text" /><input type="text" /></label>
         </div>
         <div class="encabezado-grupo">
           <label>Categoría: ${planilla.Categoria}</label>
-        </div>
-      </div>
-
-      <div class="encabezado">
-        <div class="encabezado-grupo">
-          <label>Equipo: ${equipo}</label>
-          <div class="encabezado-grupo">
-            <label>GOLES: <input type="text" /></label>
-            <label>Min: <input type="text" /></label>
+          <div class="fecha-formato">
+            <label>Día:</label>
+            <span> </span>/<span> </span>/<span> </span>
           </div>
         </div>
-      </div>
-
-      <div class="local-visitante">
-        <div class="local-visitante-option">LOCAL</div>
-        <div class="local-visitante-option">VISITANTE</div>
       </div>
 
       <div class="faltas">
@@ -210,7 +203,7 @@ const generarPlanillaHtml = (planilla: any, torneo: string, equipo: string) => {
               <td></td>
               <td>${primeraMayuscRestoMinusc(jugador.Nombre)}</td>
               <td>${jugador.DNI}</td>
-              <td></td>
+              <td>${jugador.Estado !== "Activo" ? jugador.Estado : ""}</td>
               <td></td>
             </tr>
           `
@@ -264,15 +257,21 @@ export const generarPlanillasHtml = (planillas: any) => {
   const torneo = planillas.contenido.Torneo || "";
   const equipo = planillas.contenido.Equipo || "";
 
+  // Generar todas las planillas en un solo contenedor para evitar páginas en blanco
+  const planillasHtml = planillas.contenido.Planillas.map((planilla: any) =>
+    generarPlanillaHtml(planilla, torneo, equipo)
+  ).join("");
+
   const htmlTag = `
+    <!DOCTYPE html>
     <html>
       <head>
+        <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+        <title>Planillas de Juego</title>
       </head>
-      <body style="margin: 0; padding: 0; background-color: #f5f5f5;">
-        ${planillas.contenido.Planillas.map((planilla: any) =>
-          generarPlanillaHtml(planilla, torneo, equipo)
-        ).join("")}
+      <body style="margin: 0; padding: 0; background-color: white;">
+        ${planillasHtml}
       </body>
     </html>
   `;
