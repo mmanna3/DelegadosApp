@@ -194,11 +194,12 @@ const generarPlanillaHtml = async (
 
     // Dividir los jugadores en grupos de 10 por página
     const jugadores = planilla.Jugadores || [];
-    const jugadoresPorPagina = 10;
-    const totalPaginas = Math.ceil(jugadores.length / jugadoresPorPagina);
 
     // Verificar si el torneo incluye la palabra "FUTSAL" (ignorando mayúsculas/minúsculas)
     const esTorneoFutsal = torneo.toLowerCase().includes("futsal");
+
+    const jugadoresPorPagina = esTorneoFutsal ? 10 : 12;
+    const totalPaginas = Math.ceil(jugadores.length / jugadoresPorPagina);
 
     let paginasHtml = "";
 
@@ -360,7 +361,11 @@ const generarPlanillaHtml = async (
 
     // Dividir los jugadores en grupos de 10 por página
     const jugadores = planilla.Jugadores || [];
-    const jugadoresPorPagina = 10;
+
+    // Verificar si el torneo incluye la palabra "FUTSAL" (ignorando mayúsculas/minúsculas)
+    const esTorneoFutsal = torneo.toLowerCase().includes("futsal");
+
+    const jugadoresPorPagina = esTorneoFutsal ? 10 : 12;
     const totalPaginas = Math.ceil(jugadores.length / jugadoresPorPagina);
 
     let paginasHtml = "";
