@@ -162,6 +162,13 @@ const stylesTag = `
   .observaciones-item {
     margin-bottom: 10px;
   }
+  
+  .numero-pagina {
+    position: absolute;
+    bottom: 10mm;
+    right: 15mm;
+    font-size: 12px;
+  }
 </style>
 `;
 
@@ -185,219 +192,318 @@ const generarPlanillaHtml = async (
       }
     );
 
-    return `
-    <div class="pagina">
-      <div class="logo-marca-agua">
-        <img src="data:image/png;base64,${base64}" alt="Logo EDEFI" />
-      </div>
-      <div class="titulo">PLANILLA DE JUEGO (E.D.E.F.I)</div>
-      
-      <div class="encabezado">
-        <div class="encabezado-grupo">
-          <label>Torneo: ${torneo}</label>
-          <label>Equipo: ${equipo}</label>
-          <label>GOLES: <input type="text" /></label>
-          <label>Min: <input type="text" /><input type="text" /></label>
-        </div>
-        <div class="encabezado-grupo">
-          <label>Categoría: ${planilla.Categoria}</label>
-          <div class="fecha-formato">
-            <label>Día:</label>
-            <span> </span>/<span> </span>/<span> </span>
-          </div>
-        </div>
-      </div>
+    // Dividir los jugadores en grupos de 10 por página
+    const jugadores = planilla.Jugadores || [];
+    const jugadoresPorPagina = 10;
+    const totalPaginas = Math.ceil(jugadores.length / jugadoresPorPagina);
 
-      <div class="faltas">
-        <div class="faltas-titulo">Faltas Acumuladas:</div>
-        <div class="faltas-contenedor">
-          <div class="faltas-grupo">
-            <label>1er T:</label>
-            <div class="faltas-checkbox">1</div>
-            <div class="faltas-checkbox">2</div>
-            <div class="faltas-checkbox">3</div>
-            <div class="faltas-checkbox">4</div>
-            <div class="faltas-checkbox">5</div>
+    let paginasHtml = "";
+
+    // Generar cada página
+    for (let i = 0; i < totalPaginas; i++) {
+      const inicio = i * jugadoresPorPagina;
+      const fin = Math.min(inicio + jugadoresPorPagina, jugadores.length);
+      const jugadoresEnPagina = jugadores.slice(inicio, fin);
+      const esUltimaPagina = i === totalPaginas - 1;
+      const numeroPagina = i + 1;
+
+      // Determinar si mostrar el encabezado completo o simplificado
+      const mostrarEncabezadoCompleto = i === 0;
+
+      paginasHtml += `
+      <div class="pagina">
+        <div class="logo-marca-agua">
+          <img src="data:image/png;base64,${base64}" alt="Logo EDEFI" />
+        </div>
+        <div class="titulo">PLANILLA DE JUEGO (E.D.E.F.I)</div>
+        
+        <div class="encabezado">
+          <div class="encabezado-grupo">
+            <label>Torneo: ${torneo}</label>
+            <label>Equipo: ${equipo}</label>
+            ${
+              mostrarEncabezadoCompleto
+                ? `
+            <label>GOLES: <input type="text" /></label>
+            <label>Min: <input type="text" /><input type="text" /></label>
+            `
+                : ""
+            }
           </div>
-          <div class="faltas-grupo">
-            <label>2do T:</label>
-            <div class="faltas-checkbox">1</div>
-            <div class="faltas-checkbox">2</div>
-            <div class="faltas-checkbox">3</div>
-            <div class="faltas-checkbox">4</div>
-            <div class="faltas-checkbox">5</div>
+          <div class="encabezado-grupo">
+            <label>Categoría: ${planilla.Categoria}</label>
+            ${
+              mostrarEncabezadoCompleto
+                ? `
+            <div class="fecha-formato">
+              <label>Día:</label>
+              <span> </span>/<span> </span>/<span> </span>
+            </div>
+            `
+                : ""
+            }
           </div>
         </div>
-      </div>
 
-      <table class="tabla">
-        <thead>
-          <tr>
-            <th>Nº</th>
-            <th>Apellido y Nombre</th>
-            <th>D.N.I.</th>
-            <th>Firma</th>
-            <th>Goles</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${planilla.Jugadores.map(
-            (jugador: any) => `
+        ${
+          mostrarEncabezadoCompleto
+            ? `
+        <div class="faltas">
+          <div class="faltas-titulo">Faltas Acumuladas:</div>
+          <div class="faltas-contenedor">
+            <div class="faltas-grupo">
+              <label>1er T:</label>
+              <div class="faltas-checkbox">1</div>
+              <div class="faltas-checkbox">2</div>
+              <div class="faltas-checkbox">3</div>
+              <div class="faltas-checkbox">4</div>
+              <div class="faltas-checkbox">5</div>
+            </div>
+            <div class="faltas-grupo">
+              <label>2do T:</label>
+              <div class="faltas-checkbox">1</div>
+              <div class="faltas-checkbox">2</div>
+              <div class="faltas-checkbox">3</div>
+              <div class="faltas-checkbox">4</div>
+              <div class="faltas-checkbox">5</div>
+            </div>
+          </div>
+        </div>
+        `
+            : ""
+        }
+
+        <table class="tabla">
+          <thead>
             <tr>
-              <td></td>
-              <td>${primeraMayuscRestoMinusc(jugador.Nombre)}</td>
-              <td>${jugador.DNI}</td>
-              <td>${jugador.Estado !== "Activo" ? jugador.Estado : ""}</td>
-              <td></td>
+              <th>Nº</th>
+              <th>Apellido y Nombre</th>
+              <th>D.N.I.</th>
+              <th>Firma</th>
+              <th>Goles</th>
             </tr>
-          `
-          ).join("")}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            ${jugadoresEnPagina
+              .map(
+                (jugador: any) => `
+              <tr>
+                <td></td>
+                <td>${primeraMayuscRestoMinusc(jugador.Nombre)}</td>
+                <td>${jugador.DNI}</td>
+                <td>${jugador.Estado !== "Activo" ? jugador.Estado : ""}</td>
+                <td></td>
+              </tr>
+            `
+              )
+              .join("")}
+          </tbody>
+        </table>
 
-      <div class="encabezado">
-        <div class="encabezado-grupo">
-          <label>DT: <input style="width: 200px" type="text" /></label>
+        ${
+          esUltimaPagina
+            ? `
+        <div class="encabezado">
+          <div class="encabezado-grupo">
+            <label>DT: <input style="width: 200px" type="text" /></label>
+          </div>
+          <div class="encabezado-grupo">
+            <label>AUX: <input style="width: 200px" type="text" /></label>
+          </div>
         </div>
-        <div class="encabezado-grupo">
-          <label>AUX: <input style="width: 200px" type="text" /></label>
-        </div>
-      </div>
 
-      <div class="observaciones">
-        <div class="observaciones-item">
-          <label>Jug. Expulsado: </label>
+        <div class="observaciones">
+          <div class="observaciones-item">
+            <label>Jug. Expulsado: </label>
+          </div>
+          <div class="observaciones-item">
+            <label>Público Expulsado: </label>
+          </div>
+          <div class="observaciones-item">
+            <label>Observaciones: </label>
+          </div>
         </div>
-        <div class="observaciones-item">
-          <label>Público Expulsado: </label>
-        </div>
-        <div class="observaciones-item">
-          <label>Observaciones: </label>
-        </div>
-      </div>
 
-      <div class="firmas">
-        <div class="firma-grupo">
-          <div class="firma-linea"></div>
-          <label>Firma Delegado LOCAL</label>
+        <div class="firmas">
+          <div class="firma-grupo">
+            <div class="firma-linea"></div>
+            <label>Firma Delegado LOCAL</label>
+          </div>
+          <div class="firma-grupo">
+            <div class="firma-linea"></div>
+            <label>Firma Delegado VISITANTE</label>
+          </div>
+          <div class="firma-grupo">
+            <div class="firma-linea"></div>
+            <label>Firma Árbitro</label>
+          </div>
         </div>
-        <div class="firma-grupo">
-          <div class="firma-linea"></div>
-          <label>Firma Delegado VISITANTE</label>
-        </div>
-        <div class="firma-grupo">
-          <div class="firma-linea"></div>
-          <label>Firma Árbitro</label>
-        </div>
+        `
+            : ""
+        }
+        
+        <div class="numero-pagina">Página ${numeroPagina} de ${totalPaginas}</div>
       </div>
-    </div>
-  `;
+    `;
+    }
+
+    return paginasHtml;
   } catch (error) {
     console.error("Error al cargar la imagen:", error);
-    return `
-    <div class="pagina">
-      <div class="titulo">PLANILLA DE JUEGO (E.D.E.F.I)</div>
-      
-      <div class="encabezado">
-        <div class="encabezado-grupo">
-          <label>Torneo: ${torneo}</label>
-          <label>Equipo: ${equipo}</label>
-          <label>GOLES: <input type="text" /></label>
-          <label>Min: <input type="text" /><input type="text" /></label>
-        </div>
-        <div class="encabezado-grupo">
-          <label>Categoría: ${planilla.Categoria}</label>
-          <div class="fecha-formato">
-            <label>Día:</label>
-            <span> </span>/<span> </span>/<span> </span>
-          </div>
-        </div>
-      </div>
 
-      <div class="faltas">
-        <div class="faltas-titulo">Faltas Acumuladas:</div>
-        <div class="faltas-contenedor">
-          <div class="faltas-grupo">
-            <label>1er T:</label>
-            <div class="faltas-checkbox">1</div>
-            <div class="faltas-checkbox">2</div>
-            <div class="faltas-checkbox">3</div>
-            <div class="faltas-checkbox">4</div>
-            <div class="faltas-checkbox">5</div>
+    // Dividir los jugadores en grupos de 10 por página
+    const jugadores = planilla.Jugadores || [];
+    const jugadoresPorPagina = 10;
+    const totalPaginas = Math.ceil(jugadores.length / jugadoresPorPagina);
+
+    let paginasHtml = "";
+
+    // Generar cada página
+    for (let i = 0; i < totalPaginas; i++) {
+      const inicio = i * jugadoresPorPagina;
+      const fin = Math.min(inicio + jugadoresPorPagina, jugadores.length);
+      const jugadoresEnPagina = jugadores.slice(inicio, fin);
+      const esUltimaPagina = i === totalPaginas - 1;
+      const numeroPagina = i + 1;
+
+      // Determinar si mostrar el encabezado completo o simplificado
+      const mostrarEncabezadoCompleto = i === 0;
+
+      paginasHtml += `
+      <div class="pagina">
+        <div class="titulo">PLANILLA DE JUEGO (E.D.E.F.I)</div>
+        
+        <div class="encabezado">
+          <div class="encabezado-grupo">
+            <label>Torneo: ${torneo}</label>
+            <label>Equipo: ${equipo}</label>
+            ${
+              mostrarEncabezadoCompleto
+                ? `
+            <label>GOLES: <input type="text" /></label>
+            <label>Min: <input type="text" /><input type="text" /></label>
+            `
+                : ""
+            }
           </div>
-          <div class="faltas-grupo">
-            <label>2do T:</label>
-            <div class="faltas-checkbox">1</div>
-            <div class="faltas-checkbox">2</div>
-            <div class="faltas-checkbox">3</div>
-            <div class="faltas-checkbox">4</div>
-            <div class="faltas-checkbox">5</div>
+          <div class="encabezado-grupo">
+            <label>Categoría: ${planilla.Categoria}</label>
+            ${
+              mostrarEncabezadoCompleto
+                ? `
+            <div class="fecha-formato">
+              <label>Día:</label>
+              <span> </span>/<span> </span>/<span> </span>
+            </div>
+            `
+                : ""
+            }
           </div>
         </div>
-      </div>
 
-      <table class="tabla">
-        <thead>
-          <tr>
-            <th>Nº</th>
-            <th>Apellido y Nombre</th>
-            <th>D.N.I.</th>
-            <th>Firma</th>
-            <th>Goles</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${planilla.Jugadores.map(
-            (jugador: any) => `
+        ${
+          mostrarEncabezadoCompleto
+            ? `
+        <div class="faltas">
+          <div class="faltas-titulo">Faltas Acumuladas:</div>
+          <div class="faltas-contenedor">
+            <div class="faltas-grupo">
+              <label>1er T:</label>
+              <div class="faltas-checkbox">1</div>
+              <div class="faltas-checkbox">2</div>
+              <div class="faltas-checkbox">3</div>
+              <div class="faltas-checkbox">4</div>
+              <div class="faltas-checkbox">5</div>
+            </div>
+            <div class="faltas-grupo">
+              <label>2do T:</label>
+              <div class="faltas-checkbox">1</div>
+              <div class="faltas-checkbox">2</div>
+              <div class="faltas-checkbox">3</div>
+              <div class="faltas-checkbox">4</div>
+              <div class="faltas-checkbox">5</div>
+            </div>
+          </div>
+        </div>
+        `
+            : ""
+        }
+
+        <table class="tabla">
+          <thead>
             <tr>
-              <td></td>
-              <td>${primeraMayuscRestoMinusc(jugador.Nombre)}</td>
-              <td>${jugador.DNI}</td>
-              <td>${jugador.Estado !== "Activo" ? jugador.Estado : ""}</td>
-              <td></td>
+              <th>Nº</th>
+              <th>Apellido y Nombre</th>
+              <th>D.N.I.</th>
+              <th>Firma</th>
+              <th>Goles</th>
             </tr>
-          `
-          ).join("")}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            ${jugadoresEnPagina
+              .map(
+                (jugador: any) => `
+              <tr>
+                <td></td>
+                <td>${primeraMayuscRestoMinusc(jugador.Nombre)}</td>
+                <td>${jugador.DNI}</td>
+                <td>${jugador.Estado !== "Activo" ? jugador.Estado : ""}</td>
+                <td></td>
+              </tr>
+            `
+              )
+              .join("")}
+          </tbody>
+        </table>
 
-      <div class="encabezado">
-        <div class="encabezado-grupo">
-          <label>DT: <input class="input-largo" type="text" /></label>
+        ${
+          esUltimaPagina
+            ? `
+        <div class="encabezado">
+          <div class="encabezado-grupo">
+            <label>DT: <input class="input-largo" type="text" /></label>
+          </div>
+          <div class="encabezado-grupo">
+            <label>AUX: <input class="input-largo" type="text" /></label>
+          </div>
         </div>
-        <div class="encabezado-grupo">
-          <label>AUX: <input class="input-largo" type="text" /></label>
-        </div>
-      </div>
 
-      <div class="observaciones">
-        <div class="observaciones-item">
-          <label>Jug. Expulsado: </label>
+        <div class="observaciones">
+          <div class="observaciones-item">
+            <label>Jug. Expulsado: </label>
+          </div>
+          <div class="observaciones-item">
+            <label>Público Expulsado: </label>
+          </div>
+          <div class="observaciones-item">
+            <label>Observaciones: </label>
+          </div>
         </div>
-        <div class="observaciones-item">
-          <label>Público Expulsado: </label>
-        </div>
-        <div class="observaciones-item">
-          <label>Observaciones: </label>
-        </div>
-      </div>
 
-      <div class="firmas">
-        <div class="firma-grupo">
-          <div class="firma-linea"></div>
-          <label>Firma Delegado LOCAL</label>
+        <div class="firmas">
+          <div class="firma-grupo">
+            <div class="firma-linea"></div>
+            <label>Firma Delegado LOCAL</label>
+          </div>
+          <div class="firma-grupo">
+            <div class="firma-linea"></div>
+            <label>Firma Delegado VISITANTE</label>
+          </div>
+          <div class="firma-grupo">
+            <div class="firma-linea"></div>
+            <label>Firma Árbitro</label>
+          </div>
         </div>
-        <div class="firma-grupo">
-          <div class="firma-linea"></div>
-          <label>Firma Delegado VISITANTE</label>
-        </div>
-        <div class="firma-grupo">
-          <div class="firma-linea"></div>
-          <label>Firma Árbitro</label>
-        </div>
+        `
+            : ""
+        }
+        
+        <div class="numero-pagina">Página ${numeroPagina} de ${totalPaginas}</div>
       </div>
-    </div>
-  `;
+    `;
+    }
+
+    return paginasHtml;
   }
 };
 
