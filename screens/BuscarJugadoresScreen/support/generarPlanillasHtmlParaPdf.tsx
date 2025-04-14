@@ -17,7 +17,7 @@ const stylesTag = `
 
   .pagina {
     width: 210mm;
-    padding: 30mm 15mm;
+    padding: 20mm 15mm;
     margin: 0 auto;
     background: white;
     box-sizing: border-box;
@@ -257,22 +257,22 @@ const generarPlanillaHtml = async (
 
       <div class="encabezado">
         <div class="encabezado-grupo">
-          <label>DT: <input type="text" /></label>
+          <label>DT: <input style="width: 200px" type="text" /></label>
         </div>
         <div class="encabezado-grupo">
-          <label>AUX: <input type="text" /></label>
+          <label>AUX: <input style="width: 200px" type="text" /></label>
         </div>
       </div>
 
       <div class="observaciones">
         <div class="observaciones-item">
-          <label>Jug. Expulsado: <input type="text" /></label>
+          <label>Jug. Expulsado: </label>
         </div>
         <div class="observaciones-item">
-          <label>Público Expulsado: <input type="text" /></label>
+          <label>Público Expulsado: </label>
         </div>
         <div class="observaciones-item">
-          <label>Observaciones: <input type="text" /></label>
+          <label>Observaciones: </label>
         </div>
       </div>
 
