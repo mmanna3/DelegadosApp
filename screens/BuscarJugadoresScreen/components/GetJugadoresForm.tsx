@@ -7,6 +7,7 @@ import CommonStyles from "../../../constants/CommonStyles";
 import { useAppContext } from "../../../store";
 import { IJugador } from "../../../types/IJugador";
 import useGenerarPDF from "../hooks/useGenerarPDF";
+import useGenerarPlanillas from "../hooks/useGenerarPlanillas";
 import useGetJugadores from "../hooks/useGetJugadores";
 
 interface Props {
@@ -21,6 +22,8 @@ export default function GetJugadoresForm(props: Props) {
 
   const { getJugadores, isLoading } = useGetJugadores();
   const { generarPDF, isLoading: PDFisLoading } = useGenerarPDF();
+  const { generarPlanillas, isLoading: PlanillasIsLoading } =
+    useGenerarPlanillas();
 
   const obtenerJugadores = async () => {
     props.beforeRequest();
@@ -43,13 +46,23 @@ export default function GetJugadoresForm(props: Props) {
         placeholder="Por ejemplo: AAA1234"
         style={CommonStyles.input}
       />
-      {isLoading || PDFisLoading ? (
+      {isLoading || PDFisLoading || PlanillasIsLoading ? (
         <Spinner />
       ) : (
-        <View style={styles.botonesContainer}>
-          <Button title="Ver jugadores" onPress={obtenerJugadores} />
-          {hayJugadores && <Button title="Generar PDF" onPress={generarPDF} />}
-        </View>
+        <>
+          <View style={styles.botonesContainer}>
+            <Button title="Buscar" onPress={obtenerJugadores} />
+            {hayJugadores && (
+              <>
+                <Button title="Generar PDF" onPress={generarPDF} />
+                <Button
+                  title="Planillas"
+                  onPress={() => generarPlanillas(codigoEquipo)}
+                />
+              </>
+            )}
+          </View>
+        </>
       )}
       {error !== "" && <Text style={CommonStyles.error}>{error}</Text>}
     </View>
