@@ -1,3 +1,5 @@
+import { Asset } from "expo-asset";
+import * as FileSystem from "expo-file-system";
 import { primeraMayuscRestoMinusc } from "../components/JugadorActivoCard";
 
 const stylesTag = `
@@ -15,12 +17,25 @@ const stylesTag = `
 
   .pagina {
     width: 210mm;
-    
     padding: 30mm 15mm;
     margin: 0 auto;
     background: white;
     box-sizing: border-box;
     page-break-after: always;
+    position: relative;
+  }
+
+  .logo-marca-agua {
+    position: absolute;
+    top: 10mm;
+    left: 15mm;
+    z-index: 1;
+    opacity: 0.2;
+  }
+
+  .logo-marca-agua img {
+    width: 60mm;
+    height: auto;
   }
 
   .pagina:last-child {
@@ -143,8 +158,136 @@ const stylesTag = `
 </style>
 `;
 
-const generarPlanillaHtml = (planilla: any, torneo: string, equipo: string) => {
-  return `
+const generarPlanillaHtml = async (
+  planilla: any,
+  torneo: string,
+  equipo: string
+) => {
+  // Cargar la imagen y convertirla a base64
+  try {
+    const logoAsset = Asset.fromModule(
+      require("../../../assets/images/logo.png")
+    );
+    await logoAsset.downloadAsync();
+
+    // Leer el archivo como base64
+    const base64 = await FileSystem.readAsStringAsync(
+      logoAsset.localUri || "",
+      {
+        encoding: FileSystem.EncodingType.Base64,
+      }
+    );
+
+    return `
+    <div class="pagina">
+      <div class="logo-marca-agua">
+        <img src="data:image/png;base64,${base64}" alt="Logo EDEFI" />
+      </div>
+      <div class="titulo">PLANILLA DE JUEGO (E.D.E.F.I)</div>
+      
+      <div class="encabezado">
+        <div class="encabezado-grupo">
+          <label>Torneo: ${torneo}</label>
+          <label>Equipo: ${equipo}</label>
+          <label>GOLES: <input type="text" /></label>
+          <label>Min: <input type="text" /><input type="text" /></label>
+        </div>
+        <div class="encabezado-grupo">
+          <label>Categoría: ${planilla.Categoria}</label>
+          <div class="fecha-formato">
+            <label>Día:</label>
+            <span> </span>/<span> </span>/<span> </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="faltas">
+        <div class="faltas-titulo">Faltas Acumuladas:</div>
+        <div class="faltas-contenedor">
+          <div class="faltas-grupo">
+            <label>1er T:</label>
+            <div class="faltas-checkbox">1</div>
+            <div class="faltas-checkbox">2</div>
+            <div class="faltas-checkbox">3</div>
+            <div class="faltas-checkbox">4</div>
+            <div class="faltas-checkbox">5</div>
+          </div>
+          <div class="faltas-grupo">
+            <label>2do T:</label>
+            <div class="faltas-checkbox">1</div>
+            <div class="faltas-checkbox">2</div>
+            <div class="faltas-checkbox">3</div>
+            <div class="faltas-checkbox">4</div>
+            <div class="faltas-checkbox">5</div>
+          </div>
+        </div>
+      </div>
+
+      <table class="tabla">
+        <thead>
+          <tr>
+            <th>Nº</th>
+            <th>Apellido y Nombre</th>
+            <th>D.N.I.</th>
+            <th>Firma</th>
+            <th>Goles</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${planilla.Jugadores.map(
+            (jugador: any) => `
+            <tr>
+              <td></td>
+              <td>${primeraMayuscRestoMinusc(jugador.Nombre)}</td>
+              <td>${jugador.DNI}</td>
+              <td>${jugador.Estado !== "Activo" ? jugador.Estado : ""}</td>
+              <td></td>
+            </tr>
+          `
+          ).join("")}
+        </tbody>
+      </table>
+
+      <div class="encabezado">
+        <div class="encabezado-grupo">
+          <label>DT: <input type="text" /></label>
+        </div>
+        <div class="encabezado-grupo">
+          <label>AUX: <input type="text" /></label>
+        </div>
+      </div>
+
+      <div class="observaciones">
+        <div class="observaciones-item">
+          <label>Jug. Expulsado: <input type="text" /></label>
+        </div>
+        <div class="observaciones-item">
+          <label>Público Expulsado: <input type="text" /></label>
+        </div>
+        <div class="observaciones-item">
+          <label>Observaciones: <input type="text" /></label>
+        </div>
+      </div>
+
+      <div class="firmas">
+        <div class="firma-grupo">
+          <div class="firma-linea"></div>
+          <label>Firma Delegado LOCAL</label>
+        </div>
+        <div class="firma-grupo">
+          <div class="firma-linea"></div>
+          <label>Firma Delegado VISITANTE</label>
+        </div>
+        <div class="firma-grupo">
+          <div class="firma-linea"></div>
+          <label>Firma Árbitro</label>
+        </div>
+      </div>
+    </div>
+  `;
+  } catch (error) {
+    console.error("Error al cargar la imagen:", error);
+    return `
     <div class="pagina">
       <div class="titulo">PLANILLA DE JUEGO (E.D.E.F.I)</div>
       
@@ -248,9 +391,10 @@ const generarPlanillaHtml = (planilla: any, torneo: string, equipo: string) => {
       </div>
     </div>
   `;
+  }
 };
 
-export const generarPlanillasHtml = (planillas: any) => {
+export const generarPlanillasHtml = async (planillas: any) => {
   if (!planillas || !planillas.contenido || !planillas.contenido.Planillas)
     return "";
 
@@ -258,9 +402,11 @@ export const generarPlanillasHtml = (planillas: any) => {
   const equipo = planillas.contenido.Equipo || "";
 
   // Generar todas las planillas en un solo contenedor para evitar páginas en blanco
-  const planillasHtml = planillas.contenido.Planillas.map((planilla: any) =>
-    generarPlanillaHtml(planilla, torneo, equipo)
-  ).join("");
+  const planillasHtml = await Promise.all(
+    planillas.contenido.Planillas.map((planilla: any) =>
+      generarPlanillaHtml(planilla, torneo, equipo)
+    )
+  ).then((htmls) => htmls.join(""));
 
   const htmlTag = `
     <!DOCTYPE html>

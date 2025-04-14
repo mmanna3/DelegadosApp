@@ -19,9 +19,14 @@ const useGenerarPlanillas = () => {
       console.log(planillas);
 
       setEstaGenerandoPDF(true);
+
+      // Esperar a que se resuelva la promesa de generarPlanillasHtml
+      const html = await generarPlanillasHtml(planillas);
+
       const { uri } = await Print.printToFileAsync({
-        html: generarPlanillasHtml(planillas),
+        html: html,
       });
+
       const pdfRenombrado = `${uri.slice(
         0,
         uri.lastIndexOf("/") + 1
