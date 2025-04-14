@@ -197,6 +197,9 @@ const generarPlanillaHtml = async (
     const jugadoresPorPagina = 10;
     const totalPaginas = Math.ceil(jugadores.length / jugadoresPorPagina);
 
+    // Verificar si el torneo incluye la palabra "FUTSAL" (ignorando mayúsculas/minúsculas)
+    const esTorneoFutsal = torneo.toLowerCase().includes("futsal");
+
     let paginasHtml = "";
 
     // Generar cada página
@@ -225,7 +228,11 @@ const generarPlanillaHtml = async (
               mostrarEncabezadoCompleto
                 ? `
             <label>GOLES: <input type="text" /></label>
-            <label>Min: <input type="text" /><input type="text" /></label>
+            ${
+              esTorneoFutsal
+                ? `<label>Min: <input type="text" /><input type="text" /></label>`
+                : ""
+            }
             `
                 : ""
             }
@@ -246,7 +253,7 @@ const generarPlanillaHtml = async (
         </div>
 
         ${
-          mostrarEncabezadoCompleto
+          mostrarEncabezadoCompleto && esTorneoFutsal
             ? `
         <div class="faltas">
           <div class="faltas-titulo">Faltas Acumuladas:</div>
