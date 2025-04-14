@@ -215,7 +215,7 @@ const generarPlanillaHtml = async (
         <div class="logo-marca-agua">
           <img src="data:image/png;base64,${base64}" alt="Logo EDEFI" />
         </div>
-        <div class="titulo">PLANILLA DE JUEGO (E.D.E.F.I)</div>
+        <div class="titulo">PLANILLA DE JUEGO - E.De.F.I</div>
         
         <div class="encabezado">
           <div class="encabezado-grupo">
