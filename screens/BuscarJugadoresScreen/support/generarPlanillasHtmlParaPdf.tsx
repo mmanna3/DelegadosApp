@@ -79,6 +79,20 @@ const stylesTag = `
     padding: 5px;
   }
 
+  .encabezado-firmas {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .encabezado-firmas .encabezado-grupo {
+    flex: 1;
+  }
+
+  .encabezado-firmas .encabezado-grupo:not(:first-child) {
+    margin-left: 20px;
+  }
+
   .fecha-formato {
     display: flex;
     align-items: center;
@@ -311,10 +325,19 @@ const generarPlanillaHtml = async (
         ${
           esUltimaPagina
             ? `
-        <div class="encabezado">
+        <div class="encabezado-firmas">
           <div class="encabezado-grupo">
             <label>DT: <input style="width: 200px" type="text" /></label>
           </div>
+          ${
+            esTorneoFutsal
+              ? `
+          <div class="encabezado-grupo">
+            <label>Delegado responsable: <input style="width: 200px" type="text" /></label>
+          </div>
+          `
+              : ""
+          }
           <div class="encabezado-grupo">
             <label>AUX: <input style="width: 200px" type="text" /></label>
           </div>
@@ -471,10 +494,19 @@ const generarPlanillaHtml = async (
         ${
           esUltimaPagina
             ? `
-        <div class="encabezado">
+        <div class="encabezado-firmas">
           <div class="encabezado-grupo">
             <label>DT: <input class="input-largo" type="text" /></label>
           </div>
+          ${
+            esTorneoFutsal
+              ? `
+          <div class="encabezado-grupo">
+            <label>Delegado responsable: <input class="input-largo" type="text" /></label>
+          </div>
+          `
+              : ""
+          }
           <div class="encabezado-grupo">
             <label>AUX: <input class="input-largo" type="text" /></label>
           </div>
