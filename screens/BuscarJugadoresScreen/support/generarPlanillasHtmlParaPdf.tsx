@@ -188,12 +188,201 @@ const stylesTag = `
 </style>
 `;
 
+// Función para generar el HTML de una página de planilla
+const generarPaginaHtml = (
+  jugadoresEnPagina: any[],
+  torneo: string,
+  equipo: string,
+  planilla: any,
+  esTorneoFutsal: boolean,
+  mostrarEncabezadoCompleto: boolean,
+  esUltimaPagina: boolean,
+  numeroPagina: number,
+  totalPaginas: number,
+  logoBase64?: string
+) => {
+  return `
+  <div class="pagina">
+    ${
+      logoBase64
+        ? `
+    <div class="logo-marca-agua">
+      <img src="data:image/png;base64,${logoBase64}" alt="Logo EDEFI" />
+    </div>
+    `
+        : ""
+    }
+    <div class="titulo">PLANILLA DE JUEGO - E.De.F.I</div>
+    
+    <div class="encabezado">
+      <div class="encabezado-grupo">
+        <label>Torneo: ${torneo}</label>
+        <label>Equipo: ${equipo}</label>
+        ${
+          mostrarEncabezadoCompleto
+            ? `
+        <label>GOLES: <input type="text" /></label>
+        ${
+          esTorneoFutsal
+            ? `<label>Min: <input type="text" /><input type="text" /></label>`
+            : ""
+        }
+        `
+            : ""
+        }
+      </div>
+      <div class="encabezado-grupo">
+        <label>Categoría: ${planilla.Categoria}</label>
+        ${
+          mostrarEncabezadoCompleto
+            ? `
+        <div class="fecha-formato">
+          <label>Día:</label>
+          <span> </span>/<span> </span>/<span> </span>
+        </div>
+        `
+            : ""
+        }
+      </div>
+    </div>
+
+    ${
+      mostrarEncabezadoCompleto && esTorneoFutsal
+        ? `
+    <div class="faltas">
+      <div class="faltas-titulo">Faltas Acumuladas:</div>
+      <div class="faltas-contenedor">
+        <div class="faltas-grupo">
+          <label>1er T:</label>
+          <div class="faltas-checkbox">1</div>
+          <div class="faltas-checkbox">2</div>
+          <div class="faltas-checkbox">3</div>
+          <div class="faltas-checkbox">4</div>
+          <div class="faltas-checkbox">5</div>
+        </div>
+        <div class="faltas-grupo">
+          <label>2do T:</label>
+          <div class="faltas-checkbox">1</div>
+          <div class="faltas-checkbox">2</div>
+          <div class="faltas-checkbox">3</div>
+          <div class="faltas-checkbox">4</div>
+          <div class="faltas-checkbox">5</div>
+        </div>
+      </div>
+    </div>
+    `
+        : ""
+    }
+
+    <table class="tabla">
+      <thead>
+        <tr>
+          <th>Nº</th>
+          <th>Apellido y Nombre</th>
+          <th>D.N.I.</th>
+          <th>Firma</th>
+          <th>Goles</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${jugadoresEnPagina
+          .map(
+            (jugador: any) => `
+          <tr>
+            <td></td>
+            <td>${primeraMayuscRestoMinusc(jugador.Nombre)}</td>
+            <td>${jugador.DNI}</td>
+            <td>${jugador.Estado !== "Activo" ? jugador.Estado : ""}</td>
+            <td></td>
+          </tr>
+        `
+          )
+          .join("")}
+      </tbody>
+    </table>
+
+    ${
+      esUltimaPagina
+        ? `
+    <div class="encabezado-firmas">
+      <div class="encabezado-grupo">
+        <label>DT: <input style="width: 200px" type="text" /></label>
+      </div>
+      ${
+        esTorneoFutsal
+          ? `
+      <div class="encabezado-grupo">
+        <label>Delegado responsable: <input style="width: 200px" type="text" /></label>
+      </div>
+      `
+          : ""
+      }
+      <div class="encabezado-grupo">
+        <label>AUX: <input style="width: 200px" type="text" /></label>
+      </div>
+    </div>
+
+    <div class="observaciones">
+      <div class="observaciones-item">
+        <label>Jug. Expulsado: </label>
+      </div>
+      <div class="observaciones-item">
+        <label>Público Expulsado: </label>
+      </div>
+      <div class="observaciones-item">
+        <label>Observaciones: </label>
+      </div>
+    </div>
+
+    <div class="firmas">
+      <div class="firma-grupo">
+        <div class="firma-linea"></div>
+        <label>Firma Delegado LOCAL</label>
+      </div>
+      <div class="firma-grupo">
+        <div class="firma-linea"></div>
+        <label>Firma Delegado VISITANTE</label>
+      </div>
+      <div class="firma-grupo">
+        <div class="firma-linea"></div>
+        <label>Firma Árbitro</label>
+      </div>
+    </div>
+    `
+        : ""
+    }
+    
+    <div class="numero-pagina">Página ${numeroPagina} de ${totalPaginas}</div>
+  </div>
+`;
+};
+
 const generarPlanillaHtml = async (
   planilla: any,
   torneo: string,
   equipo: string
 ) => {
-  // Cargar la imagen y convertirla a base64
+  // Dividir los jugadores en grupos de 10 por página
+  const jugadores = planilla.Jugadores || [];
+
+  // Verificar si el torneo incluye la palabra "FUTSAL" (ignorando mayúsculas/minúsculas)
+  const esTorneoFutsal = torneo.toLowerCase().includes("futsal");
+
+  // Agregar 6 jugadores en blanco para que puedan ser rellenados manualmente
+  const jugadoresConBlancos = [
+    ...jugadores,
+    ...Array(6).fill({ Nombre: "", DNI: "", Estado: "" }),
+  ];
+
+  const jugadoresPorPagina = esTorneoFutsal ? 10 : 12;
+  const totalPaginas = Math.ceil(
+    jugadoresConBlancos.length / jugadoresPorPagina
+  );
+
+  let paginasHtml = "";
+  let logoBase64: string | undefined;
+
+  // Intentar cargar la imagen y convertirla a base64
   try {
     const logoAsset = Asset.fromModule(
       require("../../../assets/images/logo.png")
@@ -201,378 +390,42 @@ const generarPlanillaHtml = async (
     await logoAsset.downloadAsync();
 
     // Leer el archivo como base64
-    const base64 = await FileSystem.readAsStringAsync(
-      logoAsset.localUri || "",
-      {
-        encoding: FileSystem.EncodingType.Base64,
-      }
-    );
-
-    // Dividir los jugadores en grupos de 10 por página
-    const jugadores = planilla.Jugadores || [];
-
-    // Verificar si el torneo incluye la palabra "FUTSAL" (ignorando mayúsculas/minúsculas)
-    const esTorneoFutsal = torneo.toLowerCase().includes("futsal");
-
-    // Agregar 6 jugadores en blanco para que puedan ser rellenados manualmente
-    const jugadoresConBlancos = [
-      ...jugadores,
-      ...Array(6).fill({ Nombre: "", DNI: "", Estado: "" }),
-    ];
-
-    const jugadoresPorPagina = esTorneoFutsal ? 10 : 12;
-    const totalPaginas = Math.ceil(
-      jugadoresConBlancos.length / jugadoresPorPagina
-    );
-
-    let paginasHtml = "";
-
-    // Generar cada página
-    for (let i = 0; i < totalPaginas; i++) {
-      const inicio = i * jugadoresPorPagina;
-      const fin = Math.min(
-        inicio + jugadoresPorPagina,
-        jugadoresConBlancos.length
-      );
-      const jugadoresEnPagina = jugadoresConBlancos.slice(inicio, fin);
-      const esUltimaPagina = i === totalPaginas - 1;
-      const numeroPagina = i + 1;
-
-      // Determinar si mostrar el encabezado completo o simplificado
-      const mostrarEncabezadoCompleto = i === 0;
-
-      paginasHtml += `
-      <div class="pagina">
-        <div class="logo-marca-agua">
-          <img src="data:image/png;base64,${base64}" alt="Logo EDEFI" />
-        </div>
-        <div class="titulo">PLANILLA DE JUEGO - E.De.F.I</div>
-        
-        <div class="encabezado">
-          <div class="encabezado-grupo">
-            <label>Torneo: ${torneo}</label>
-            <label>Equipo: ${equipo}</label>
-            ${
-              mostrarEncabezadoCompleto
-                ? `
-            <label>GOLES: <input type="text" /></label>
-            ${
-              esTorneoFutsal
-                ? `<label>Min: <input type="text" /><input type="text" /></label>`
-                : ""
-            }
-            `
-                : ""
-            }
-          </div>
-          <div class="encabezado-grupo">
-            <label>Categoría: ${planilla.Categoria}</label>
-            ${
-              mostrarEncabezadoCompleto
-                ? `
-            <div class="fecha-formato">
-              <label>Día:</label>
-              <span> </span>/<span> </span>/<span> </span>
-            </div>
-            `
-                : ""
-            }
-          </div>
-        </div>
-
-        ${
-          mostrarEncabezadoCompleto && esTorneoFutsal
-            ? `
-        <div class="faltas">
-          <div class="faltas-titulo">Faltas Acumuladas:</div>
-          <div class="faltas-contenedor">
-            <div class="faltas-grupo">
-              <label>1er T:</label>
-              <div class="faltas-checkbox">1</div>
-              <div class="faltas-checkbox">2</div>
-              <div class="faltas-checkbox">3</div>
-              <div class="faltas-checkbox">4</div>
-              <div class="faltas-checkbox">5</div>
-            </div>
-            <div class="faltas-grupo">
-              <label>2do T:</label>
-              <div class="faltas-checkbox">1</div>
-              <div class="faltas-checkbox">2</div>
-              <div class="faltas-checkbox">3</div>
-              <div class="faltas-checkbox">4</div>
-              <div class="faltas-checkbox">5</div>
-            </div>
-          </div>
-        </div>
-        `
-            : ""
-        }
-
-        <table class="tabla">
-          <thead>
-            <tr>
-              <th>Nº</th>
-              <th>Apellido y Nombre</th>
-              <th>D.N.I.</th>
-              <th>Firma</th>
-              <th>Goles</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${jugadoresEnPagina
-              .map(
-                (jugador: any) => `
-              <tr>
-                <td></td>
-                <td>${primeraMayuscRestoMinusc(jugador.Nombre)}</td>
-                <td>${jugador.DNI}</td>
-                <td>${jugador.Estado !== "Activo" ? jugador.Estado : ""}</td>
-                <td></td>
-              </tr>
-            `
-              )
-              .join("")}
-          </tbody>
-        </table>
-
-        ${
-          esUltimaPagina
-            ? `
-        <div class="encabezado-firmas">
-          <div class="encabezado-grupo">
-            <label>DT: <input style="width: 200px" type="text" /></label>
-          </div>
-          ${
-            esTorneoFutsal
-              ? `
-          <div class="encabezado-grupo">
-            <label>Delegado responsable: <input style="width: 200px" type="text" /></label>
-          </div>
-          `
-              : ""
-          }
-          <div class="encabezado-grupo">
-            <label>AUX: <input style="width: 200px" type="text" /></label>
-          </div>
-        </div>
-
-        <div class="observaciones">
-          <div class="observaciones-item">
-            <label>Jug. Expulsado: </label>
-          </div>
-          <div class="observaciones-item">
-            <label>Público Expulsado: </label>
-          </div>
-          <div class="observaciones-item">
-            <label>Observaciones: </label>
-          </div>
-        </div>
-
-        <div class="firmas">
-          <div class="firma-grupo">
-            <div class="firma-linea"></div>
-            <label>Firma Delegado LOCAL</label>
-          </div>
-          <div class="firma-grupo">
-            <div class="firma-linea"></div>
-            <label>Firma Delegado VISITANTE</label>
-          </div>
-          <div class="firma-grupo">
-            <div class="firma-linea"></div>
-            <label>Firma Árbitro</label>
-          </div>
-        </div>
-        `
-            : ""
-        }
-        
-        <div class="numero-pagina">Página ${numeroPagina} de ${totalPaginas}</div>
-      </div>
-    `;
-    }
-
-    return paginasHtml;
+    logoBase64 = await FileSystem.readAsStringAsync(logoAsset.localUri || "", {
+      encoding: FileSystem.EncodingType.Base64,
+    });
   } catch (error) {
     console.error("Error al cargar la imagen:", error);
-
-    // Dividir los jugadores en grupos de 10 por página
-    const jugadores = planilla.Jugadores || [];
-
-    // Verificar si el torneo incluye la palabra "FUTSAL" (ignorando mayúsculas/minúsculas)
-    const esTorneoFutsal = torneo.toLowerCase().includes("futsal");
-
-    // Agregar 6 jugadores en blanco para que puedan ser rellenados manualmente
-    const jugadoresConBlancos = [
-      ...jugadores,
-      ...Array(6).fill({ Nombre: "", DNI: "", Estado: "" }),
-    ];
-
-    const jugadoresPorPagina = esTorneoFutsal ? 10 : 12;
-    const totalPaginas = Math.ceil(
-      jugadoresConBlancos.length / jugadoresPorPagina
-    );
-
-    let paginasHtml = "";
-
-    // Generar cada página
-    for (let i = 0; i < totalPaginas; i++) {
-      const inicio = i * jugadoresPorPagina;
-      const fin = Math.min(
-        inicio + jugadoresPorPagina,
-        jugadoresConBlancos.length
-      );
-      const jugadoresEnPagina = jugadoresConBlancos.slice(inicio, fin);
-      const esUltimaPagina = i === totalPaginas - 1;
-      const numeroPagina = i + 1;
-
-      // Determinar si mostrar el encabezado completo o simplificado
-      const mostrarEncabezadoCompleto = i === 0;
-
-      paginasHtml += `
-      <div class="pagina">
-        <div class="titulo">PLANILLA DE JUEGO (E.D.E.F.I)</div>
-        
-        <div class="encabezado">
-          <div class="encabezado-grupo">
-            <label>Torneo: ${torneo}</label>
-            <label>Equipo: ${equipo}</label>
-            ${
-              mostrarEncabezadoCompleto
-                ? `
-            <label>GOLES: <input type="text" /></label>
-            <label>Min: <input type="text" /><input type="text" /></label>
-            `
-                : ""
-            }
-          </div>
-          <div class="encabezado-grupo">
-            <label>Categoría: ${planilla.Categoria}</label>
-            ${
-              mostrarEncabezadoCompleto
-                ? `
-            <div class="fecha-formato">
-              <label>Día:</label>
-              <span> </span>/<span> </span>/<span> </span>
-            </div>
-            `
-                : ""
-            }
-          </div>
-        </div>
-
-        ${
-          mostrarEncabezadoCompleto
-            ? `
-        <div class="faltas">
-          <div class="faltas-titulo">Faltas Acumuladas:</div>
-          <div class="faltas-contenedor">
-            <div class="faltas-grupo">
-              <label>1er T:</label>
-              <div class="faltas-checkbox">1</div>
-              <div class="faltas-checkbox">2</div>
-              <div class="faltas-checkbox">3</div>
-              <div class="faltas-checkbox">4</div>
-              <div class="faltas-checkbox">5</div>
-            </div>
-            <div class="faltas-grupo">
-              <label>2do T:</label>
-              <div class="faltas-checkbox">1</div>
-              <div class="faltas-checkbox">2</div>
-              <div class="faltas-checkbox">3</div>
-              <div class="faltas-checkbox">4</div>
-              <div class="faltas-checkbox">5</div>
-            </div>
-          </div>
-        </div>
-        `
-            : ""
-        }
-
-        <table class="tabla">
-          <thead>
-            <tr>
-              <th>Nº</th>
-              <th>Apellido y Nombre</th>
-              <th>D.N.I.</th>
-              <th>Firma</th>
-              <th>Goles</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${jugadoresEnPagina
-              .map(
-                (jugador: any) => `
-              <tr>
-                <td></td>
-                <td>${primeraMayuscRestoMinusc(jugador.Nombre)}</td>
-                <td>${jugador.DNI}</td>
-                <td>${jugador.Estado !== "Activo" ? jugador.Estado : ""}</td>
-                <td></td>
-              </tr>
-            `
-              )
-              .join("")}
-          </tbody>
-        </table>
-
-        ${
-          esUltimaPagina
-            ? `
-        <div class="encabezado-firmas">
-          <div class="encabezado-grupo">
-            <label>DT: <input class="input-largo" type="text" /></label>
-          </div>
-          ${
-            esTorneoFutsal
-              ? `
-          <div class="encabezado-grupo">
-            <label>Delegado responsable: <input class="input-largo" type="text" /></label>
-          </div>
-          `
-              : ""
-          }
-          <div class="encabezado-grupo">
-            <label>AUX: <input class="input-largo" type="text" /></label>
-          </div>
-        </div>
-
-        <div class="observaciones">
-          <div class="observaciones-item">
-            <label>Jug. Expulsado: </label>
-          </div>
-          <div class="observaciones-item">
-            <label>Público Expulsado: </label>
-          </div>
-          <div class="observaciones-item">
-            <label>Observaciones: </label>
-          </div>
-        </div>
-
-        <div class="firmas">
-          <div class="firma-grupo">
-            <div class="firma-linea"></div>
-            <label>Firma Delegado LOCAL</label>
-          </div>
-          <div class="firma-grupo">
-            <div class="firma-linea"></div>
-            <label>Firma Delegado VISITANTE</label>
-          </div>
-          <div class="firma-grupo">
-            <div class="firma-linea"></div>
-            <label>Firma Árbitro</label>
-          </div>
-        </div>
-        `
-            : ""
-        }
-        
-        <div class="numero-pagina">Página ${numeroPagina} de ${totalPaginas}</div>
-      </div>
-    `;
-    }
-
-    return paginasHtml;
   }
+
+  // Generar cada página
+  for (let i = 0; i < totalPaginas; i++) {
+    const inicio = i * jugadoresPorPagina;
+    const fin = Math.min(
+      inicio + jugadoresPorPagina,
+      jugadoresConBlancos.length
+    );
+    const jugadoresEnPagina = jugadoresConBlancos.slice(inicio, fin);
+    const esUltimaPagina = i === totalPaginas - 1;
+    const numeroPagina = i + 1;
+
+    // Determinar si mostrar el encabezado completo o simplificado
+    const mostrarEncabezadoCompleto = i === 0;
+
+    paginasHtml += generarPaginaHtml(
+      jugadoresEnPagina,
+      torneo,
+      equipo,
+      planilla,
+      esTorneoFutsal,
+      mostrarEncabezadoCompleto,
+      esUltimaPagina,
+      numeroPagina,
+      totalPaginas,
+      logoBase64
+    );
+  }
+
+  return paginasHtml;
 };
 
 export const generarPlanillasHtml = async (planillas: any) => {
