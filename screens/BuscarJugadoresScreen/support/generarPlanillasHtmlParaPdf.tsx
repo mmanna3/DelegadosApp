@@ -144,6 +144,8 @@ const stylesTag = `
     border: 1px solid #000;
     padding: 8px;
     text-align: left;
+    height: 30px;
+    min-height: 30px;
   }
 
   .tabla th {
@@ -212,16 +214,27 @@ const generarPlanillaHtml = async (
     // Verificar si el torneo incluye la palabra "FUTSAL" (ignorando mayúsculas/minúsculas)
     const esTorneoFutsal = torneo.toLowerCase().includes("futsal");
 
+    // Agregar 6 jugadores en blanco para que puedan ser rellenados manualmente
+    const jugadoresConBlancos = [
+      ...jugadores,
+      ...Array(6).fill({ Nombre: "", DNI: "", Estado: "" }),
+    ];
+
     const jugadoresPorPagina = esTorneoFutsal ? 10 : 12;
-    const totalPaginas = Math.ceil(jugadores.length / jugadoresPorPagina);
+    const totalPaginas = Math.ceil(
+      jugadoresConBlancos.length / jugadoresPorPagina
+    );
 
     let paginasHtml = "";
 
     // Generar cada página
     for (let i = 0; i < totalPaginas; i++) {
       const inicio = i * jugadoresPorPagina;
-      const fin = Math.min(inicio + jugadoresPorPagina, jugadores.length);
-      const jugadoresEnPagina = jugadores.slice(inicio, fin);
+      const fin = Math.min(
+        inicio + jugadoresPorPagina,
+        jugadoresConBlancos.length
+      );
+      const jugadoresEnPagina = jugadoresConBlancos.slice(inicio, fin);
       const esUltimaPagina = i === totalPaginas - 1;
       const numeroPagina = i + 1;
 
@@ -388,16 +401,27 @@ const generarPlanillaHtml = async (
     // Verificar si el torneo incluye la palabra "FUTSAL" (ignorando mayúsculas/minúsculas)
     const esTorneoFutsal = torneo.toLowerCase().includes("futsal");
 
+    // Agregar 6 jugadores en blanco para que puedan ser rellenados manualmente
+    const jugadoresConBlancos = [
+      ...jugadores,
+      ...Array(6).fill({ Nombre: "", DNI: "", Estado: "" }),
+    ];
+
     const jugadoresPorPagina = esTorneoFutsal ? 10 : 12;
-    const totalPaginas = Math.ceil(jugadores.length / jugadoresPorPagina);
+    const totalPaginas = Math.ceil(
+      jugadoresConBlancos.length / jugadoresPorPagina
+    );
 
     let paginasHtml = "";
 
     // Generar cada página
     for (let i = 0; i < totalPaginas; i++) {
       const inicio = i * jugadoresPorPagina;
-      const fin = Math.min(inicio + jugadoresPorPagina, jugadores.length);
-      const jugadoresEnPagina = jugadores.slice(inicio, fin);
+      const fin = Math.min(
+        inicio + jugadoresPorPagina,
+        jugadoresConBlancos.length
+      );
+      const jugadoresEnPagina = jugadoresConBlancos.slice(inicio, fin);
       const esUltimaPagina = i === totalPaginas - 1;
       const numeroPagina = i + 1;
 
