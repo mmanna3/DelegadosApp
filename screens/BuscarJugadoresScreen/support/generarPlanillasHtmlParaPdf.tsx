@@ -44,39 +44,42 @@ const stylesTag = `
 
   .titulo {
     text-align: center;
-    font-size: 24px;
+    font-size: 20px;
     font-weight: 700;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
   }
 
   .encabezado {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
   }
 
   .encabezado-grupo {
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 3px;
   }
 
   .encabezado-grupo label {
     font-weight: 500;
+    font-size: 12px;
   }
 
   .encabezado-grupo input {
     border: none;
     border-bottom: 1px solid #000;
     width: 80px;
-    padding: 5px;
+    padding: 3px;
+    font-size: 12px;
   }
 
   .input-largo {
     border: none;
     border-bottom: 1px solid #000;
     width: 200px;
-    padding: 5px;
+    padding: 3px;
+    font-size: 12px;
   }
 
   .encabezado-firmas {
@@ -137,15 +140,16 @@ const stylesTag = `
   .tabla {
     width: 100%;
     border-collapse: collapse;
-    margin: 20px 0;
+    margin: 15px 0;
   }
 
   .tabla th, .tabla td {
     border: 1px solid #000;
-    padding: 8px;
+    padding: 5px;
     text-align: left;
-    height: 30px;
-    min-height: 30px;
+    height: 25px;
+    min-height: 25px;
+    font-size: 11px;
   }
 
   .tabla th {
@@ -374,7 +378,7 @@ const generarPlanillaHtml = async (
     ...Array(6).fill({ Nombre: "", DNI: "", Estado: "" }),
   ];
 
-  const jugadoresPorPagina = esTorneoFutsal ? 10 : 12;
+  const jugadoresPorPagina = esTorneoFutsal ? 21 : 26;
   const totalPaginas = Math.ceil(
     jugadoresConBlancos.length / jugadoresPorPagina
   );
