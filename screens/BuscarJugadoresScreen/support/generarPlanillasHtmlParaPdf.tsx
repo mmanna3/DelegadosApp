@@ -12,12 +12,12 @@ const stylesTag = `
 
   @page {
     size: A4;
-    margin: 25mm 15mm 25mm 15mm;
+    margin: 15mm 15mm 25mm 15mm;
   }
 
   .pagina {
     width: 210mm;
-    padding: 20mm 15mm;
+    padding: 15mm 15mm;
     margin: 0 auto;
     background: white;
     box-sizing: border-box;
@@ -402,7 +402,7 @@ const generarPlanillaHtml = async (
     ...Array(6).fill({ Nombre: "", DNI: "", Estado: "" }),
   ];
 
-  const jugadoresPorPagina = esTorneoFutsal ? 21 : 26;
+  const jugadoresPorPagina = esTorneoFutsal ? 25 : 30;
   const totalPaginas = Math.ceil(
     jugadoresConBlancos.length / jugadoresPorPagina
   );
