@@ -286,6 +286,18 @@ const generarPaginaHtml = (
           <th>D.N.I.</th>
           <th>Firma</th>
           <th>Goles</th>
+          ${
+            esTorneoFutsal
+              ? `
+          <th>AM</th>
+          <th>C/O</th>
+          <th>EXP</th>
+          `
+              : `
+          <th>AM</th>
+          <th>EXP</th>
+          `
+          }
         </tr>
       </thead>
       <tbody>
@@ -298,6 +310,18 @@ const generarPaginaHtml = (
             <td>${jugador.DNI}</td>
             <td>${jugador.Estado !== "Activo" ? jugador.Estado : ""}</td>
             <td></td>
+            ${
+              esTorneoFutsal
+                ? `
+            <td></td>
+            <td></td>
+            <td></td>
+            `
+                : `
+            <td></td>
+            <td></td>
+            `
+            }
           </tr>
         `
           )
