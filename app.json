@@ -29,7 +29,7 @@
     "android": {
       "package": "com.ykn.edefidelegados",
       "softwareKeyboardLayoutMode": "pan",
-      "versionCode": 14,
+      "versionCode": 15,
       "userInterfaceStyle": "light"
     },
     "web": {
